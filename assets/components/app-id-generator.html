@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DTools</title>
+    <script src="../scripts/jquery.js"></script>
+    <script src="../scripts/fa.js"></script>
+    <script src="../scripts/data.js"></script>
+    <script src="../scripts/popup.js"></script>
+    <link rel="stylesheet" href="../styles/custom.css" />
+    <link rel="stylesheet" href="../styles/boostrap.css" />
+  </head>
+  <body>
+    <section class="main-container">
+      <div class="header">
+        <img class="logo" src="../images/icon.png" />
+        <span class="app-name" id="app-name"></span>
+      </div>
+      <div
+        class="app-section"
+        id="app-id-generator"
+        style="display: flex !important"
+      >
+        <h4>App ID Generator</h4>
+
+        <div id="aig-p1">
+          <div class="form-group">
+            <label for="">Prefix</label>
+            <input
+              type="text"
+              class="form-control"
+              id="prefix"
+              placeholder=""
+              value="Dtools"
+            />
+          </div>
+          <div class="form-group">
+            <label for="">App Link</label>
+            <input
+              type="text"
+              class="form-control"
+              id="link"
+              placeholder="Enter Link"
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            id="app-id-query-generator-btn"
+          >
+            Generate
+          </button>
+        </div>
+
+        <div id="aig-p2">
+          <div class="form-group">
+            <label for="link">APP ID (Deriv)</label>
+            <div class="code-box">
+              <textarea
+                class="form-control code big"
+                id="app-id-deriv"
+                readonly
+              ></textarea>
+            </div>
+
+            <label for="link">APP ID (Binary)</label>
+            <div class="code-box">
+              <textarea
+                class="form-control code big"
+                id="app-id-binary"
+                readonly
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="footer-btn">
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="generate-id-again"
+            >
+              Generate Again
+            </button>
+            <a href="https://qa10.deriv.dev/ide/ide.html" target="_blank"
+              >Cloud 9</a
+            >
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>

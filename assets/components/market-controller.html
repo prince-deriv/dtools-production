@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>DTools</title>
+    <script src="../scripts/jquery.js"></script>
+    <script src="../scripts/fa.js"></script>
+    <script src="../scripts/data.js"></script>
+    <script src="../scripts/popup.js"></script>
+    <link rel="stylesheet" href="../styles/custom.css" />
+    <link rel="stylesheet" href="../styles/boostrap.css" />
+  </head>
+  <body>
+    <section class="main-container">
+      <div class="header">
+        <img class="logo" src="../images/icon.png" />
+        <span class="app-name" id="app-name"></span>
+      </div>
+      <div
+        class="app-section"
+        id="app-id-generator"
+        style="display: flex !important"
+      >
+        <h4>Market Controller</h4>
+
+        <div class="form-group">
+          <label>Open Trading Days</label>
+          <div class="code-box">
+            <textarea class="form-control code" readonly>
+sudo vi regentmarkets/cpan/local/lib/perl5/auto/share/dist/Finance-Exchange/exchanges_trading_days_aliases.yml</textarea
+            >
+          </div>
+          <label>Restart Services</label>
+          <div class="code-box">
+            <textarea class="form-control code" readonly>
+sudo service binary_rpc_redis_general restart; sudo service binary_websocket_api restart; sudo service binary_pricer_daemon restart; sudo service binary_starman_bom-backoffice restart</textarea
+            >
+          </div>
+        </div>
+
+        <div class="footer-btn">
+          <a href="https://qa37.deriv.dev/ide/ide.html" target="_blank"
+            >Cloud 9 - QA37</a
+          >
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
