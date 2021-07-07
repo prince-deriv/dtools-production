@@ -1,1 +1,1 @@
-alert("Called by renderer");
+alert("Called by renderer")
