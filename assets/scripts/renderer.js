@@ -1,4 +1,4 @@
-alert("Rendering Dtools");
+alert("Rendering Dtools")
 
 const popup_tempate = `
 <section class="main-container">
