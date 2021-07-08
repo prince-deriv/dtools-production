@@ -1,0 +1,29 @@
+module.exports = function (grunt) {
+  grunt.initConfig({
+    concat: {
+      options: {},
+      dist: {
+        src: [
+          "assets/scripts/app/fa.js",
+          "assets/scripts/app/jquery.js",
+          "assets/scripts/app/data.js",
+          "assets/scripts/app/menu.js",
+          "assets/scripts/app/functions.js",
+          "assets/scripts/app/pages.js",
+          "assets/scripts/app/popup.js",
+        ],
+
+        dest: "assets/scripts/renderer/app.js",
+      },
+    },
+    // uglify: {
+    //   app: {
+    //     src: "assets/scripts/renderer/app.js",
+    //     dest: "assets/scripts/renderer/app.min.js",
+    //   },
+    // },
+  });
+  //   grunt.loadNpmTasks("grunt-contrib-uglify");
+  grunt.loadNpmTasks("grunt-contrib-concat");
+  grunt.registerTask("default", ["concat"]);
+};

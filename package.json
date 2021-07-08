@@ -2,10 +2,11 @@
   "name": "deriv-tools",
   "version": "1.0.0",
   "description": "Tools for Deriv FE Team",
-  "type": "module",
   "scripts": {
-    "watch": "onchange 'assets/scripts/renderer.js' 'assets/scripts/template.js' -- npm run compile",
-    "compile": "javascript-obfuscator assets/scripts/renderer.js --output assets/scripts/renderer-obs.js"
+    "watch": "onchange 'assets/scripts/app/*.js' -- npm run compile",
+    "compile": "grunt && npm run obfuscate",
+    "obfuscate": "javascript-obfuscator assets/scripts/renderer/app.js --output assets/scripts/renderer/app-obs.js",
+    "serve": "autoreload-server -p 4444"
   },
   "repository": {
     "type": "git",
@@ -18,8 +19,17 @@
   },
   "homepage": "https://github.com/prince-deriv/d-tools#readme",
   "devDependencies": {
+    "grunt": "~0.4.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-concat": "~0.5.0",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-jshint": "~0.6.3",
+    "grunt-contrib-requirejs": "~0.4.1",
+    "grunt-contrib-uglify": "~0.2.1",
+    "grunt-strip": "~0.2.1",
     "javascript-obfuscator": "^2.15.5",
-    "onchange": "^7.1.0"
+    "onchange": "^7.1.0",
+    "simple-autoreload-server": "^0.2.15"
   },
   "dependencies": {}
 }

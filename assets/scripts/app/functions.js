@@ -1,14 +1,9 @@
-const version = "1.1";
+const version = "1.3";
 const cloud_9_link = "https://qa10.deriv.dev/ide/ide.html";
 
-const window_sizes = {
-  menu: [300, 280],
-  endpoint: [300, 350],
-  "app-id-generator": [400, 420],
-  "market-controller": [450, 260],
-};
+const initFunctions = () => {
+  // Jquery functions the required to get loaded after the popup is render must be inside of this function
 
-$(document).ready(() => {
   DTools.manageStorage();
 
   $("#app-name").html(`DTools ${version}`);
@@ -103,7 +98,9 @@ $(document).ready(() => {
     $("#aig-p2").hide();
     $("#aig-p1").show();
   });
-});
+};
+
+// Other Functions
 
 const buildAppIdQuery = (query, key) => {
   const get_query = `select (id) from oauth.apps where name='${key}';`;
@@ -187,8 +184,8 @@ const close = () => {
 
 const launch = (file) => {
   const popupWindow = window.open(
-    chrome.extension.getURL(`assets/components/${file}.html`),
-    "Dtools",
+    chrome.extension.getURL(`popup.html`),
+    file,
     `resizable=no,width=${window_sizes[file][0]},height=${window_sizes[file][1]}`
   );
 

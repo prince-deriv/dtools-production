@@ -1,4 +1,4 @@
-broker_codes = ["VRTC", "CR", "MF", "MLT", "MX"];
+broker_codes = ["VRTC", "CR", "MF", "MLT", "MX---mofo"];
 
 country_codes = [
   { code: "AF", code3: "AFG", name: "Afghanistan", number: "004" },
@@ -482,14 +482,5 @@ qa_boxes = [
   "69",
   "",
   "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
+
 ];

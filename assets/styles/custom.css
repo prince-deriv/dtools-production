@@ -33,6 +33,9 @@ textarea.code.big {
   line-height: 13px !important;
   font-size: 9px !important;
 }
+textarea.code.no-scroll {
+  overflow: hidden;
+}
 label {
   margin-bottom: 2px !important;
   font-size: 12px !important;
