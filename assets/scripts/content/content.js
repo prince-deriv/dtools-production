@@ -1,4 +1,4 @@
-const version = "1.1.1";
+const version = "1.1.2";
 
 const log = (m) => {
   console.log(
@@ -253,6 +253,8 @@ const versionChecker = {
 
     setTimeout(() => {
       const dtools_version = versionChecker.dtools_version;
+
+      console.log(dtools_version);
 
       if (dtools_version != version) {
         toast.show(`DTools is now version ${version}`);
