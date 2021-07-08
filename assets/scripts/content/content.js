@@ -1,3 +1,5 @@
+const version = "1.1.0";
+
 const log = (m) => {
   console.log(
     `%c DTools: %c ${m} `,
@@ -6,7 +8,7 @@ const log = (m) => {
   );
 };
 
-const messagehandler = (request, sender, sendResponse) => {
+messagehandler = (request, sender, sendResponse) => {
   const { action, data } = request;
 
   switch (action) {
@@ -185,3 +187,79 @@ const fetchEndPoint = () => {
   chrome.storage.local.set({ server_url: getSocketURL() });
   chrome.storage.local.set({ account_id: localStorage["active_loginid"] });
 };
+
+const toast = {
+  build: () => {
+    const toast_container = document.createElement("div");
+    toast_container.id = "dtools-toast-container";
+
+    toast_container.style.position = "fixed";
+    toast_container.style.zIndex = "9999999999";
+    toast_container.style.bottom = "10px";
+    toast_container.style.right = "-500px";
+    toast_container.style.width = "auto";
+    toast_container.style.minWidth = "200px";
+    toast_container.style.height = "auto";
+    toast_container.style.backgroundColor = "#ff444f";
+    toast_container.style.opacity = "0.9";
+    toast_container.style.borderRadius = "4px";
+    toast_container.style.boxShadow = "#bbb 0px 0px 13px";
+    toast_container.style.backgroundColor = "#000";
+    toast_container.style.display = "flex";
+    toast_container.style.padding = "10px";
+    toast_container.style.color = "white";
+    toast_container.style.fontSize = "15px";
+    toast_container.style.fontWeight = "bold";
+    toast_container.style.alignItems = "center";
+    toast_container.style.transition = "all 0.5s ease-out";
+
+    document.body.prepend(toast_container);
+
+    return toast_container;
+  },
+  show: (e, time) => {
+    const counter = time ? time : 10000;
+    const toaster = toast.build();
+
+    setTimeout(() => {
+      toaster.style.right = "10px";
+    }, 300);
+
+    setTimeout(() => {
+      toaster.style.opacity = "0";
+    }, counter);
+
+    const add_ons = `
+      <img style="height:20px;margin-right: 10px;" src="${url}/assets/images/icon.png" />
+    `;
+
+    toaster.innerHTML = add_ons + "" + e;
+  },
+};
+
+const versionChecker = {
+  dtools_version: null,
+  dtools_last_updated: null,
+  loadData: async () => {
+    ["dtools_version", "dtools_last_updated"].map((key) => {
+      chrome.storage.local.get(key, function (value) {
+        const val = value[key];
+        versionChecker[key] = val;
+      });
+    });
+  },
+  run: () => {
+    versionChecker.loadData();
+
+    setTimeout(() => {
+      const dtools_version = versionChecker.dtools_version;
+
+      if (dtools_version != version) {
+        toast.show(`DTools is now version ${version}`);
+        chrome.storage.local.set({ dtools_version: version });
+      }
+    }, 1500);
+  },
+};
+
+versionChecker.run();

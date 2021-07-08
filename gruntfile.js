@@ -4,8 +4,10 @@ module.exports = function (grunt) {
       options: {},
       dist: {
         src: [
-          "assets/scripts/app/fa.js",
-          "assets/scripts/app/jquery.js",
+          "assets/scripts/app/plugins/fa.js",
+          "assets/scripts/app/plugins/jquery.js",
+          "assets/scripts/app/plugins/jquery.toast.min.js",
+          "assets/scripts/app/changelog.js",
           "assets/scripts/app/data.js",
           "assets/scripts/app/menu.js",
           "assets/scripts/app/functions.js",

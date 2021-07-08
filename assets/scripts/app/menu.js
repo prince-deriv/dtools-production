@@ -7,7 +7,7 @@ const window_sizes = {
 
 const menu = [
   {
-    icon: "hashtagss",
+    icon: "hashtag",
     title: "App ID Generator",
     target: "app-id-generator",
   },
@@ -36,7 +36,7 @@ const menu = [
 const renderMenu = () => {
   let content = "";
   menu.map((m) => {
-    content += `<div class="box-item" data-target="${m.target}">
+    content += `<div class="box-item router-link" data-target="${m.target}">
             <i class="fas fa-${m.icon} icon"></i>
             <span class="text">${m.title}</span>
           </div>`;

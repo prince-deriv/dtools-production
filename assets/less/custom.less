@@ -1,10 +1,12 @@
 @d-red: #ff444f;
 @d-gray: #373737;
+@d-green: #4bb4b3;
+@d-white: #f2f3f4;
 
 body {
   min-width: 300px;
   height: auto;
-  background: #f2f3f4 !important;
+  background: @d-white !important;
 }
 
 button {
@@ -72,6 +74,12 @@ label {
       font-weight: bold;
       font-size: 15px;
     }
+
+    .update-icon {
+      margin-left: auto;
+      color: @d-green;
+      cursor: pointer;
+    }
   }
   .app-section {
     display: none;
@@ -81,9 +89,11 @@ label {
 
     .back-btn {
       position: absolute;
-      right: 10px;
-      top: 16px;
+      right: 7px;
+      top: 13px;
       cursor: pointer;
+      background: @d-white;
+      padding: 5px;
     }
 
     #aig-p2 {
@@ -150,6 +160,14 @@ label {
         margin-right: 5px;
       }
     }
+
+    &.np {
+      padding: 0px;
+
+      h4 {
+        padding: 10px;
+      }
+    }
   }
 }
 
@@ -180,5 +198,44 @@ label {
     opacity: 1;
     transform: translateY(0);
     transition-duration: 300ms;
+  }
+}
+
+#changelog-container {
+  overflow: auto;
+  overflow-x: hidden;
+  height: auto;
+  max-height: 500px;
+  // background: white;
+
+  .log-item {
+    display: flex;
+    flex-direction: column;
+    border-top: solid 1px #ddd;
+    margin: 0;
+    padding: 10px;
+
+    .version {
+      font-weight: bold;
+      font-size: 13px;
+      margin: 0 0 5px;
+    }
+
+    .desc {
+      font-size: 12px;
+    }
+
+    .log-list {
+      .log-title {
+        font-size: 12px;
+        font-weight: bold;
+      }
+
+      ul {
+        li {
+          font-size: 12px;
+        }
+      }
+    }
   }
 }

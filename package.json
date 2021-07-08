@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "Tools for Deriv FE Team",
   "scripts": {
-    "watch": "onchange 'assets/scripts/app/*.js' -- npm run compile",
+    "watch": "onchange 'assets/scripts/app/*.js' 'assets/scripts/background/*.js' 'assets/scripts/content/*.js' -- npm run compile",
     "compile": "grunt && npm run obfuscate",
-    "obfuscate": "javascript-obfuscator assets/scripts/renderer/app.js --output assets/scripts/renderer/app-obs.js",
+    "obfuscate": "javascript-obfuscator assets/scripts/renderer/app.js --output assets/scripts/renderer/app-obs.js && javascript-obfuscator assets/scripts/background/background.js --output assets/scripts/renderer/background-obs.js && javascript-obfuscator assets/scripts/content/content.js --output assets/scripts/renderer/content-obs.js",
     "serve": "autoreload-server -p 4444"
   },
   "repository": {

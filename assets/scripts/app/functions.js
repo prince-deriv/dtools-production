@@ -1,11 +1,8 @@
-const version = "1.3";
+const version = "1.1.0";
 const cloud_9_link = "https://qa10.deriv.dev/ide/ide.html";
-const production_url = "https://prince-deriv.github.io/d-tools/";
 
 const initFunctions = () => {
   // Jquery functions the required to get loaded after the popup is render must be inside of this function
-
-  DTools.manageStorage();
 
   $("#app-name").html(`DTools ${version}`);
 
@@ -17,7 +14,7 @@ const initFunctions = () => {
 
   generateDropdowns();
 
-  $(".box-item").click(function () {
+  $(".router-link").click(function () {
     const section = $(this).data("target");
 
     if (section) {
@@ -220,12 +217,16 @@ const pageHandler = (e) => {
   }
 };
 
-const css_files = ["/assets/styles/custom.css","/assets/styles/bootstrap.css", ];
+const css_files = [
+  "/assets/styles/custom.css",
+  "/assets/styles/bootstrap.css",
+  "/assets/styles/jquery.toast.min",
+];
 
 const injectCss = () => {
   css_files.map((file) => {
     link = document.createElement("link");
-    link.href = `${production_url}${file}`;
+    link.href = `${url}${file}`;
     link.type = "text/css";
     link.rel = "stylesheet";
     document.getElementsByTagName("head")[0].appendChild(link);
@@ -245,3 +246,17 @@ const DTools = {
     });
   },
 };
+
+// Fetch Default Endpoint
+chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+  var activeTab = tabs[0];
+  chrome.tabs.sendMessage(
+    activeTab.id,
+    {
+      action: "fetchEndPoint",
+    },
+    () => {
+      DTools.manageStorage();
+    }
+  );
+});

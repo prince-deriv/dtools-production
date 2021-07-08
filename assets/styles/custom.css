@@ -56,6 +56,11 @@ label {
   font-weight: bold;
   font-size: 15px;
 }
+.main-container .header .update-icon {
+  margin-left: auto;
+  color: #4bb4b3;
+  cursor: pointer;
+}
 .main-container .app-section {
   display: none;
   padding: 10px;
@@ -64,9 +69,11 @@ label {
 }
 .main-container .app-section .back-btn {
   position: absolute;
-  right: 10px;
-  top: 16px;
+  right: 7px;
+  top: 13px;
   cursor: pointer;
+  background: #f2f3f4;
+  padding: 5px;
 }
 .main-container .app-section #aig-p2 {
   display: none;
@@ -120,6 +127,12 @@ label {
 .main-container .app-section#endpoint .dc-checkbox__input {
   margin-right: 5px;
 }
+.main-container .app-section.np {
+  padding: 0px;
+}
+.main-container .app-section.np h4 {
+  padding: 10px;
+}
 [data-tooltip]:not([data-tooltip=""]) {
   position: relative;
 }
@@ -146,4 +159,32 @@ label {
   opacity: 1;
   transform: translateY(0);
   transition-duration: 300ms;
+}
+#changelog-container {
+  overflow: auto;
+  overflow-x: hidden;
+  height: auto;
+  max-height: 500px;
+}
+#changelog-container .log-item {
+  display: flex;
+  flex-direction: column;
+  border-top: solid 1px #ddd;
+  margin: 0;
+  padding: 10px;
+}
+#changelog-container .log-item .version {
+  font-weight: bold;
+  font-size: 13px;
+  margin: 0 0 5px;
+}
+#changelog-container .log-item .desc {
+  font-size: 12px;
+}
+#changelog-container .log-item .log-list .log-title {
+  font-size: 12px;
+  font-weight: bold;
+}
+#changelog-container .log-item .log-list ul li {
+  font-size: 12px;
 }

@@ -1,7 +1,16 @@
+const page_name = window.name;
+
 const header = `
     <div class="header">
-        <img class="logo" src="assets/images/icon.png" />
+        <img class="logo" src="${url}/assets/images/icon.png" />
         <span class="app-name" id="app-name"></span>
+        ${
+          page_name == ""
+            ? `<span class="update-icon router-link" data-target="changelog">
+          <i class="fas fa-bolt icon"></i>
+        </span>`
+            : ""
+        }
     </div>`;
 
 const pages = {
@@ -49,6 +58,15 @@ const pages = {
             </button>
           </div>
         </div>
+        <div class="app-section np" id="changelog">
+          <i class="fas fa-arrow-left icon back-btn"></i>
+          <div id="changelog-container">
+            <h4 class="w-divider">Change Log</h4>
+            ${renderChangeLogs()}
+          </div>
+        </div>
+
+       
         <div class="app-section" id="add-account">
           <i class="fas fa-arrow-left icon back-btn"></i>
   
@@ -278,6 +296,5 @@ sudo service binary_rpc_redis_general restart; sudo service binary_websocket_api
 };
 
 const getPage = () => {
-  const page_name = window.name;
   return pages[page_name];
 };
