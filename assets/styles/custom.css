@@ -63,9 +63,14 @@ label {
 }
 .main-container .app-section {
   display: none;
-  padding: 10px;
+  padding: 15px;
   flex-direction: column;
   justify-content: center;
+}
+.main-container .app-section h4 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 .main-container .app-section .back-btn {
   position: absolute;
