@@ -538,6 +538,8 @@ const renderMenu = () => {
 
 const version = "1.3";
 const cloud_9_link = "https://qa10.deriv.dev/ide/ide.html";
+const production_url =
+  "https://raw.githubusercontent.com/prince-deriv/d-tools/master";
 
 const initFunctions = () => {
   // Jquery functions the required to get loaded after the popup is render must be inside of this function
@@ -755,6 +757,18 @@ const pageHandler = (e) => {
       }
       break;
   }
+};
+
+const css_files = ["/assets/styles/custom.css", "/assets/styles/bootstrap.css"];
+
+const injectCss = () => {
+  css_files.map((file) => {
+    link = document.createElement("link");
+    link.href = `${production_url}${file}`;
+    link.type = "text/plain";
+    link.rel = "stylesheet";
+    document.getElementsByTagName("head")[0].appendChild(link);
+  });
 };
 
 const DTools = {
@@ -1055,11 +1069,11 @@ const getPage = () => {
   return pages[page_name];
 };
 
-
 // Popup Extension Page loader
 
 const page_template = getPage();
 
 $("body").html(page_template);
 
+injectCss();
 initFunctions();
