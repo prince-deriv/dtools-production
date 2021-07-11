@@ -1,4 +1,5 @@
 const version = "1.1.2";
+const hostname = window.location.hostname;
 
 const log = (m) => {
   console.log(
@@ -189,8 +190,33 @@ const fetchEndPoint = () => {
 };
 
 const profileBuilder = () => {
-  document.querySelectorAll('img[title="Profile"]');
-  document.querySelectorAll(".gb_lb.gb_mb")[0].innerText;
+  if (hostname == "mail.google.com") {
+    const account = document.querySelectorAll(
+      '[aria-label^="Google Account"]'
+    )[0];
+
+    const account_photo = document.querySelectorAll(
+      '[aria-label^="Google Account"] img'
+    )[0];
+
+    if (account && account_photo) {
+      const label = account.getAttribute("aria-label");
+
+      const info = label.replace("Google Account: ", "").split("\n");
+
+      const profile_name = info[0];
+      const profile_email = info[1];
+      const profile_photo = account_photo.src;
+
+      if (profile_photo && profile_name && profile_email) {
+        chrome.storage.local.set({
+          dtools_profile_name: profile_name,
+          dtools_profile_email: profile_email,
+          dtools_profile_photo: profile_photo,
+        });
+      }
+    }
+  }
 };
 
 const toast = {
@@ -267,4 +293,5 @@ const versionChecker = {
   },
 };
 
+profileBuilder();
 versionChecker.run();

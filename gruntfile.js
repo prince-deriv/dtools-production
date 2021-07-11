@@ -6,7 +6,6 @@ module.exports = function (grunt) {
         src: [
           "assets/scripts/app/plugins/fa.js",
           "assets/scripts/app/plugins/jquery.js",
-          "assets/scripts/app/plugins/jquery.toast.min.js",
           "assets/scripts/app/changelog.js",
           "assets/scripts/app/data.js",
           "assets/scripts/app/menu.js",

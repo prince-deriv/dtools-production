@@ -181,6 +181,44 @@ label {
   }
 }
 
+.profile-container {
+  display: none;
+  align-items: center;
+  border-bottom: solid 1px #ddd;
+  padding: 10px;
+
+  .photo {
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    margin: 0 10px;
+    padding: 2px;
+    background: #eee;
+  }
+
+  .details {
+    display: flex;
+    flex-direction: column;
+
+    .name {
+      font-weight: bold;
+      color: @d-gray;
+      font-size: 15px;
+      margin-bottom: 2px;
+    }
+
+    .email {
+      font-size: 12px;
+    }
+  }
+}
+
+.body-container {
+  overflow: auto;
+  height: auto;
+  max-height: 450px;
+}
+
 [data-tooltip]:not([data-tooltip=""]) {
   position: relative;
 
@@ -212,11 +250,15 @@ label {
 }
 
 #changelog-container {
-  overflow: auto;
-  overflow-x: hidden;
-  height: auto;
-  max-height: 500px;
+  // overflow: auto;
+  // overflow-x: hidden;
+  // height: auto;
+  // max-height: 500px;
   // background: white;
+
+  h4 {
+    margin-bottom: 3px;
+  }
 
   .log-item {
     display: flex;
