@@ -7,7 +7,7 @@
     "compile": "grunt && npm run obfuscate",
     "obfuscate": "javascript-obfuscator assets/scripts/renderer/app.js --output assets/scripts/renderer/app-obs.js && javascript-obfuscator assets/scripts/background/background.js --output assets/scripts/renderer/background-obs.js && javascript-obfuscator assets/scripts/content/content.js --output assets/scripts/renderer/content-obs.js",
     "serve": "autoreload-server -p 4444",
-    "deploy": "git commit -m '$npm_config_commit' && git push origin master && git checkout gh-pages && git rebase master && git push origin gh-pages && git checkout master"
+    "deploy": "git push origin master && git checkout gh-pages && git rebase master && git push origin gh-pages && git checkout master"
   },
   "repository": {
     "type": "git",
