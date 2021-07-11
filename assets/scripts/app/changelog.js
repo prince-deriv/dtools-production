@@ -1,5 +1,15 @@
 const changelog = [
   {
+    version: "1.1.1",
+    date: "July 11 2021",
+    added: [
+      "Profile details",
+    ],
+    updated: ["incorrect options on account manager"],
+    description:
+      "<strong>Dtools</strong> will now use your Deriv information. Any tools that required your personal details will auto fill it for you.",
+  },
+  {
     version: "1.1.0",
     date: "July 8 2021",
     added: [
