@@ -1178,7 +1178,9 @@ const getPage = () => {
 
 const page_template = getPage();
 
-$("body").html(page_template);
+setTimeout(() => {
+  $("body").html(page_template);
+}, 1200);
 
 injectCss();
 initFunctions();

@@ -12,6 +12,9 @@ button.btn-secondary {
   border-color: white !important;
   color: #373737 !important;
 }
+.lds-ellipsis {
+  margin-left: calc(50% - 12%);
+}
 h4 {
   font-size: 16px !important;
 }
