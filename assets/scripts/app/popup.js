@@ -1,8 +1,9 @@
 // Popup Extension Page loader
-
 const page_template = getPage();
 
-$("body").html(page_template);
+setTimeout(() => {
+  $("body").html(page_template);
+  initFunctions();
+}, 300);
 
 injectCss();
-initFunctions();
