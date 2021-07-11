@@ -188,6 +188,11 @@ const fetchEndPoint = () => {
   chrome.storage.local.set({ account_id: localStorage["active_loginid"] });
 };
 
+const profileBuilder = () => {
+  document.querySelectorAll('img[title="Profile"]');
+  document.querySelectorAll(".gb_lb.gb_mb")[0].innerText;
+};
+
 const toast = {
   build: () => {
     const toast_container = document.createElement("div");
@@ -253,8 +258,6 @@ const versionChecker = {
 
     setTimeout(() => {
       const dtools_version = versionChecker.dtools_version;
-
-      console.log(dtools_version);
 
       if (dtools_version != version) {
         toast.show(`DTools is now version ${version}`);
