@@ -11,7 +11,7 @@ const changelog = [
     ],
     updated: ["incorrect options on account manager"],
     description:
-      "<strong>Dtools</strong> will now use your Deriv information. Any tools that required your personal details will auto fill it for you.",
+      "<strong>Dtools</strong> will now use your Deriv information. Any tools that require your personal details will auto fill it for you.",
   },
   {
     version: "1.1.0",
