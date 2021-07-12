@@ -27,6 +27,11 @@ const menu = [
     target: "top-up",
   },
   {
+    icon: "link",
+    title: "Quick Links",
+    target: "quick-links",
+  },
+  {
     icon: "balance-scale-right",
     title: "Market Controller",
     target: "market-controller",

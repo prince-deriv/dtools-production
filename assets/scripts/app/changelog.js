@@ -1,5 +1,12 @@
 const changelog = [
   {
+    version: "1.1.2",
+    date: "July 12 2021",
+    added: ["Quick Links"],
+    description:
+      "Quick links for QA boxes",
+  },
+  {
     version: "1.1.1",
     date: "July 11 2021",
     added: ["Profile details"],

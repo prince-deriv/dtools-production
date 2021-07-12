@@ -1,4 +1,4 @@
-const version = "1.1.1";
+const version = "1.1.2";
 const cloud_9_link = "https://qa10.deriv.dev/ide/ide.html";
 
 const initFunctions = () => {
@@ -154,8 +154,21 @@ const generateDropdowns = () => {
     generateAccountTopUpCode();
   });
 
+
+  $(".quick-link-launcher").click(function(){
+    const target = $(this).data('target');
+    const url = $(this).data('url');
+
+    const val = $(target).val();
+
+    const final_url = url.replace('{LINK}',val);
+
+    window.open(final_url, '_blank');
+  });
+
   generateAddAccountCode();
   generateAccountTopUpCode();
+  generateQANumbers();
 };
 
 const generateAddAccountCode = () => {
@@ -176,6 +189,20 @@ const generateAccountTopUpCode = () => {
   ).val()} ${$("#at-amount").val()}`;
 
   $("#account-topup-code").val(code);
+};
+
+const generateQANumbers = () => {
+  const pre_selected = 10;
+
+  let options = "";
+
+  for (x = 1; x < 100; x++) {
+    options += `<option value="${x}" ${
+      pre_selected == x ? "selected" : ""
+    }>${x}</option>`;
+  }
+
+  $(".qa-box-input").html(options);
 };
 
 const close = () => {

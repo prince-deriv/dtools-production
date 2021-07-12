@@ -21,7 +21,7 @@ const profile = `
           <span class="email"></span>
         </div>
    </div>
-`;    
+`;
 
 const pages = {
   "": `
@@ -198,6 +198,37 @@ const pages = {
             </div>
           </div>
         </div>
+        <div class="app-section" id="quick-links">
+        <i class="fas fa-arrow-left icon back-btn"></i>
+        <h4>Quick Links</h4>
+        <div>
+          <div class="form-group">
+            <label for="">Boxes</label>
+
+            <div class="input-group mb-3 small-input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="qa-box-select">QA</label>
+              </div>
+              <select class="custom-select qa-box-input" id="qa-box-select">
+              </select>
+              <button class="btn btn-primary quick-link-launcher" data-target="#qa-box-select" data-url="https://qa{LINK}.deriv.dev/ide/ide.html">Launch</button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="">Emails</label>
+
+            <div class="input-group mb-3 small-input-group">
+              <div class="input-group-prepend">
+                <label class="input-group-text" for="qa-box-select">QA</label>
+              </div>
+              <select class="custom-select qa-box-input" id="qa-email-select">
+              </select>
+              <button class="btn btn-primary quick-link-launcher" data-target="#qa-email-select" data-url="https://qa{LINK}.deriv.dev/emails/">Launch</button>
+            </div>
+        </div>
+      </div>
+    </div>
       </section>`,
   "app-id-generator": `
   <section class="main-container">

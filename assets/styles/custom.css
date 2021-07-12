@@ -225,3 +225,17 @@ label {
 #changelog-container .log-item .log-list ul li {
   font-size: 12px;
 }
+.small-input-group .input-group-text {
+  height: 38px;
+}
+.small-input-group .custom-select {
+  outline: none !important;
+}
+.small-input-group button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  height: 38px;
+  border: 1px solid #ced4da;
+  border-left: none;
+  outline: none !important;
+}
