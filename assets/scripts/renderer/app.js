@@ -6,10 +6,8 @@ const changelog = [
   {
     version: "1.1.1",
     date: "July 11 2021",
-    added: [
-      "Profile details",
-    ],
-    updated: ["incorrect options on account manager"],
+    added: ["Profile details"],
+    fixed: ["incorrect options on account manager"],
     description:
       "<strong>Dtools</strong> will now use your Deriv information. Any tools that require your personal details will auto fill it for you.",
   },
@@ -72,6 +70,20 @@ const renderChangeLogs = () => {
                       <span class="log-title">Added</span>
                       <ul>
                           ${log.added.map((ad) => `<li>${ad}</li>`).join("")}
+                      </ul>
+                  </div>
+              `
+                : ``
+            }
+
+
+            ${
+              log.fixed && log.fixed.length
+                ? `
+                  <div class="log-list">
+                      <span class="log-title">Fixed</span>
+                      <ul>
+                          ${log.fixed.map((fx) => `<li>${fx}</li>`).join("")}
                       </ul>
                   </div>
               `
