@@ -203,11 +203,9 @@ const pages = {
         <h4>Quick Links</h4>
         <div>
           <div class="form-group">
-            <label for="">Boxes</label>
-
             <div class="input-group mb-3 small-input-group">
               <div class="input-group-prepend">
-                <label class="input-group-text" for="qa-box-select">QA</label>
+                <label class="input-group-text" for="qa-box-select">QA Box</label>
               </div>
               <select class="custom-select qa-box-input" id="qa-box-select">
               </select>
@@ -216,11 +214,9 @@ const pages = {
           </div>
 
           <div class="form-group">
-            <label for="">Emails</label>
-
             <div class="input-group mb-3 small-input-group">
               <div class="input-group-prepend">
-                <label class="input-group-text" for="qa-box-select">QA</label>
+                <label class="input-group-text" for="qa-box-select">QA Emails</label>
               </div>
               <select class="custom-select qa-box-input" id="qa-email-select">
               </select>

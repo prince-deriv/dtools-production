@@ -227,6 +227,7 @@ label {
 }
 .small-input-group .input-group-text {
   height: 38px;
+  min-width: 125px;
 }
 .small-input-group .custom-select {
   outline: none !important;
