@@ -154,16 +154,15 @@ const generateDropdowns = () => {
     generateAccountTopUpCode();
   });
 
-
-  $(".quick-link-launcher").click(function(){
-    const target = $(this).data('target');
-    const url = $(this).data('url');
+  $(".quick-link-launcher").click(function () {
+    const target = $(this).data("target");
+    const url = $(this).data("url");
 
     const val = $(target).val();
 
-    const final_url = url.replace('{LINK}',val);
+    const final_url = url.replace("{LINK}", val);
 
-    window.open(final_url, '_blank');
+    window.open(final_url, "_blank");
   });
 
   generateAddAccountCode();
@@ -250,10 +249,13 @@ const cleanKey = (key, prefix = "") => {
   return key.replace(`dtools_${prefix}`, "");
 };
 
+const getUnix = () => {
+  return Math.floor(new Date().getTime() / 1000);
+};
+
 const css_files = [
-  "/assets/styles/custom.css",
-  "/assets/styles/bootstrap.css",
-  "/assets/styles/jquery.toast.min",
+  `/assets/styles/custom.css?ver=${getUnix()}`,
+  `/assets/styles/bootstrap.css?ver=${getUnix()}`,
 ];
 
 const injectCss = () => {
