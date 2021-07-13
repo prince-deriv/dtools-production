@@ -2,7 +2,7 @@ const version = "1.1.3";
 const cloud_9_link = "https://qa10.deriv.dev/ide/ide.html";
 
 const initFunctions = () => {
-  // Jquery functions the required to get loaded after the popup is render must be inside of this function
+  // Jquery functions that are required to get loaded after the popup is rendered must be inside of this function
 
   $("#app-name").html(`DTools ${version}`);
 
@@ -234,7 +234,7 @@ const launch = (file) => {
   const popupWindow = window.open(
     chrome.extension.getURL(`popup.html`),
     file,
-    `resizable=no,width=${window_sizes[file][0]},height=${window_sizes[file][1]}`
+    `resizable=0,width=${window_sizes[file][0]},height=${window_sizes[file][1]}`
   );
 
   window.close();
