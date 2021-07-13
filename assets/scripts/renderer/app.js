@@ -1351,9 +1351,6 @@ const pages = {
               >
                 Generate Again
               </button>
-              <a href="https://qa10.deriv.dev/ide/ide.html" target="_blank"
-                >Cloud 9</a
-              >
             </div>
           </div>
         </div>
