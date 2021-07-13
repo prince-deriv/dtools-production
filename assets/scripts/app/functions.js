@@ -1,4 +1,4 @@
-const version = "1.1.2";
+const version = "1.1.3";
 const cloud_9_link = "https://qa10.deriv.dev/ide/ide.html";
 
 const initFunctions = () => {
