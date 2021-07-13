@@ -767,7 +767,7 @@ const popupLoad = () => {
   const main_container = $(".main-container");
 
   if (main_container.css("display") == "none") {
-    main_container.fadeIn(1000);
+    main_container.fadeIn(100);
   }
 
   setTimeout(() => {
@@ -1401,6 +1401,6 @@ const page_template = getPage();
 setTimeout(() => {
   $("body").html(page_template);
   initFunctions();
-}, 300);
+}, 800);
 
 injectCss();
