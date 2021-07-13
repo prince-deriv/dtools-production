@@ -30,8 +30,12 @@ const initFunctions = () => {
   $("#change-endpoint").click(() => {
     const app_id = $("#endpoint-app-id").val();
     const server_url = $("#endpoint-server").val();
-    const is_dashboard = $("#enable-dashboard").is(':checked') ? 'true' : 'false';
-    const debug_service_worker = $("#enable-service-worker").is(':checked') ? '1' : '0';
+    const is_dashboard = $("#enable-dashboard").is(":checked")
+      ? "true"
+      : "false";
+    const debug_service_worker = $("#enable-service-worker").is(":checked")
+      ? "1"
+      : "0";
 
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
       var activeTab = tabs[0];
@@ -41,7 +45,7 @@ const initFunctions = () => {
           app_id,
           server_url,
           is_dashboard,
-          debug_service_worker
+          debug_service_worker,
         },
       });
     });
@@ -102,6 +106,8 @@ const initFunctions = () => {
   });
 
   profileManager.init();
+
+  $(".main-container").fadeIn(500);
 };
 
 // Other Functions
