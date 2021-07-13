@@ -240,3 +240,6 @@ label {
   border-left: none;
   outline: none !important;
 }
+.form-check-input {
+  margin-top: 0.47rem !important;
+}

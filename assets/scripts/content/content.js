@@ -14,10 +14,12 @@ messagehandler = (request, sender, sendResponse) => {
 
   switch (action) {
     case "changeEndPoint":
-      const { app_id, server_url } = data;
+      const { app_id, server_url, is_dashboard, debug_service_worker } = data;
       log(`Changing Endpoint into APP_ID:${app_id} SERVER URL:${server_url}`);
       localStorage.setItem("config.app_id", app_id);
       localStorage.setItem("config.server_url", server_url);
+      localStorage.setItem("is_dashboard", is_dashboard);
+      localStorage.setItem("debug_service_worker", debug_service_worker);
       location.reload();
       break;
     case "resetEndPoint":
@@ -187,6 +189,10 @@ const fetchEndPoint = () => {
   chrome.storage.local.set({ app_id: getAppId() });
   chrome.storage.local.set({ server_url: getSocketURL() });
   chrome.storage.local.set({ account_id: localStorage["active_loginid"] });
+  chrome.storage.local.set({ is_dashboard: localStorage["is_dashboard"] });
+  chrome.storage.local.set({
+    debug_service_worker: localStorage["debug_service_worker"],
+  });
 };
 
 const profileBuilder = () => {

@@ -674,6 +674,8 @@ const initFunctions = () => {
   $("#change-endpoint").click(() => {
     const app_id = $("#endpoint-app-id").val();
     const server_url = $("#endpoint-server").val();
+    const is_dashboard = $("#enable-dashboard").is(':checked') ? 'true' : 'false';
+    const debug_service_worker = $("#enable-service-worker").is(':checked') ? '1' : '0';
 
     chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
       var activeTab = tabs[0];
@@ -682,6 +684,8 @@ const initFunctions = () => {
         data: {
           app_id,
           server_url,
+          is_dashboard,
+          debug_service_worker
         },
       });
     });
@@ -879,6 +883,11 @@ const pageHandler = (e) => {
       {
         $("#endpoint-server").val(DTools.server_url);
         $("#endpoint-app-id").val(DTools.app_id);
+        $("#enable-dashboard").prop("checked", DTools.is_dashboard == "true");
+        $("#enable-service-worker").prop(
+          "checked",
+          DTools.debug_service_worker == "1"
+        );
       }
       break;
     case "top-up":
@@ -916,8 +925,16 @@ const DTools = {
   app_id: null,
   server_url: null,
   account_id: null,
+  is_dashboard: null,
+  debug_service_worker: null,
   manageStorage: async () => {
-    ["server_url", "app_id", "account_id"].map((key) => {
+    [
+      "server_url",
+      "app_id",
+      "account_id",
+      "is_dashboard",
+      "debug_service_worker",
+    ].map((key) => {
       chrome.storage.local.get(key, function (value) {
         const val = value[key];
         DTools[key] = val;
@@ -1052,6 +1069,24 @@ const pages = {
                 id="endpoint-app-id"
                 placeholder="App ID"
               />
+            </div>
+
+            <div class="form-group">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="enable-dashboard">
+                <label class="form-check-label" for="enable-dashboard">
+                  Enable Dashboard
+                </label>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="enable-service-worker">
+                <label class="form-check-label" for="enable-service-worker">
+                  Enable Service Worker
+                </label>
+              </div>
             </div>
     
             <div class="footer-btn">
