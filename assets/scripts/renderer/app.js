@@ -758,10 +758,22 @@ const initFunctions = () => {
 
   profileManager.init();
 
-  $(".main-container").fadeIn(500);
+  popupLoad();
 };
 
 // Other Functions
+
+const popupLoad = () => {
+  const main_container = $(".main-container");
+
+  if (main_container.css("display") == "none") {
+    main_container.fadeIn(500);
+  }
+
+  setTimeout(() => {
+    popupLoad();
+  }, 10);
+};
 
 const buildAppIdQuery = (query, key) => {
   const get_query = `select (id) from oauth.apps where name='${key}';`;
