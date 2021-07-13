@@ -116,7 +116,7 @@ const popupLoad = () => {
   const main_container = $(".main-container");
 
   if (main_container.css("display") == "none") {
-    main_container.fadeIn(500);
+    main_container.fadeIn(1000);
   }
 
   setTimeout(() => {
