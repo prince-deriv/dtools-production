@@ -5,7 +5,7 @@ window.FontAwesomeKitConfig = {"asyncLoading":{"enabled":true},"autoA11y":{"enab
 const changelog = [
   {
     version: "1.1.3",
-    date: "July 12 2021",
+    date: "July 13 2021",
     added: ["enable dashboard checkbox","enable service worker checkbox"],
     description:
       "Added dashboad and service worker control on end point manager",
