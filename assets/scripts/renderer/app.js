@@ -731,9 +731,6 @@ const initFunctions = () => {
     });
 
   $("#app-id-query-generator-btn").click(function () {
-    $("#aig-p1").hide();
-    $("#aig-p2").show();
-
     const now = new Date();
     const epoch = Math.round(now.getTime() / 1000);
     const prefix = $("#app-id-generator #prefix").val();
@@ -741,11 +738,20 @@ const initFunctions = () => {
 
     const link = $("#app-id-generator #link").val();
 
+    if ($.trim(link) == "") {
+      return false;
+    }
+
+    chrome.storage.local.set({ app_link: link });
+
     const app_id_deriv = $("#app-id-generator #app-id-deriv");
     const app_id_binary = $("#app-id-generator #app-id-binary");
 
     const deriv_query = `insert into oauth.apps (name, binary_user_id, active, redirect_uri, scopes, verification_uri) values ('${key}', 1, true, '${link}', '{read,admin,trade,payments}', '${link}/redirect');`;
     const binary_query = `insert into oauth.apps (name, binary_user_id, active, redirect_uri, scopes, verification_uri) values ('${key}', 1, true, '${link}/en/logged_inws.html', '{read,admin,trade,payments}', '${link}/en/redirect.html');`;
+
+    $("#aig-p1").hide();
+    $("#aig-p2").show();
 
     app_id_deriv.val(buildAppIdQuery(deriv_query, key));
     app_id_binary.val(buildAppIdQuery(binary_query, key));
@@ -892,7 +898,7 @@ const launch = (file) => {
 };
 
 const selectMenu = (e) => {
-  const popups = ["app-id-generator", "market-controller"];
+  const popups = [];
 
   if (popups.includes(e)) {
     launch(e);
@@ -918,6 +924,13 @@ const pageHandler = (e) => {
     case "top-up":
       {
         $(".account-id-input").val(DTools.account_id);
+      }
+      break;
+    case "app-id-generator":
+      {
+        chrome.storage.local.get("app_link", function (value) {
+          $("#link").val(value["app_link"]);
+        });
       }
       break;
   }
@@ -1061,6 +1074,8 @@ const profile = `
    </div>
 `;
 
+const back_button = `<i class="fas fa-arrow-left icon back-btn"></i>`;
+
 const pages = {
   "": `
     <section class="main-container">
@@ -1073,8 +1088,7 @@ const pages = {
               </div>
             </div>
             <div class="app-section" id="endpoint">
-              <i class="fas fa-arrow-left icon back-btn"></i>
-      
+              ${back_button}
               <h4>Change API Endpoint</h4>
               <div class="form-group">
                 <label for="">Server:</label>
@@ -1136,8 +1150,7 @@ const pages = {
 
           
             <div class="app-section" id="add-account">
-              <i class="fas fa-arrow-left icon back-btn"></i>
-      
+              ${back_button}
               <h4>Generate Account</h4>
       
               <div>
@@ -1204,7 +1217,7 @@ const pages = {
               </div>
             </div>
             <div class="app-section" id="top-up">
-              <i class="fas fa-arrow-left icon back-btn"></i>
+              ${back_button}
               <h4>Account Top-Up</h4>
               <div>
                 <div class="form-group">
@@ -1255,7 +1268,7 @@ const pages = {
             </div>
           </div>
           <div class="app-section" id="quick-links">
-          <i class="fas fa-arrow-left icon back-btn"></i>
+          ${back_button}
           <h4>Quick Links</h4>
           <div>
             <div class="form-group">
@@ -1281,107 +1294,98 @@ const pages = {
           </div>
         </div>
       </div>
-  </section>`,
-  "app-id-generator": `
-  <section class="main-wrapper">
-    <section class="main-container app-id-generator">
-        ${header}
-        <div
-          class="app-section"
-          id="app-id-generator"
-          style="display: flex !important"
-        >
-          <h4>App ID Generator</h4>
+      <div class="app-section" id="app-id-generator">
+      ${back_button}
+      <h4>App ID Generator</h4>
 
-          <div id="aig-p1">
-            <div class="form-group">
-              <label for="">Prefix</label>
-              <input
-                type="text"
-                class="form-control"
-                id="prefix"
-                placeholder=""
-                value="Dtools"
-              />
-            </div>
-            <div class="form-group">
-              <label for="">App Link</label>
-              <input
-                type="text"
-                class="form-control"
-                id="link"
-                placeholder="Enter Link"
-              />
-            </div>
-            <button
-              type="submit"
-              class="btn btn-primary"
-              id="app-id-query-generator-btn"
-            >
-              Generate
-            </button>
+      <div id="aig-p1">
+        <div class="form-group">
+          <label for="">Prefix</label>
+          <input
+            type="text"
+            class="form-control"
+            id="prefix"
+            placeholder=""
+            value="Dtools"
+          />
+        </div>
+        <div class="form-group">
+          <label for="">App Link</label>
+          <input
+            type="text"
+            class="form-control"
+            id="link"
+            placeholder="Enter Link"
+          />
+        </div>
+        <button
+          type="submit"
+          class="btn btn-primary"
+          id="app-id-query-generator-btn"
+        >
+          Generate
+        </button>
+      </div>
+
+      <div id="aig-p2">
+        <div class="form-group">
+          <label for="link">APP ID (Deriv)</label>
+          <div class="code-box">
+            <textarea
+              class="form-control code big"
+              id="app-id-deriv"
+              readonly
+            ></textarea>
           </div>
 
-          <div id="aig-p2">
-            <div class="form-group">
-              <label for="link">APP ID (Deriv)</label>
-              <div class="code-box">
-                <textarea
-                  class="form-control code big"
-                  id="app-id-deriv"
-                  readonly
-                ></textarea>
-              </div>
-
-              <label for="link">APP ID (Binary)</label>
-              <div class="code-box">
-                <textarea
-                  class="form-control code big"
-                  id="app-id-binary"
-                  readonly
-                ></textarea>
-              </div>
-            </div>
-
-            <div class="footer-btn">
-              <button
-                type="submit"
-                class="btn btn-primary"
-                id="generate-id-again"
-              >
-                Generate Again
-              </button>
-            </div>
+          <label for="link">APP ID (Binary)</label>
+          <div class="code-box">
+            <textarea
+              class="form-control code big"
+              id="app-id-binary"
+              readonly
+            ></textarea>
           </div>
         </div>
-    </section>
+
+        <div class="footer-btn">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            id="generate-id-again"
+          >
+            Change URL
+          </button>
+        </div>
+      </div>
+    </div>
+    <div
+    class="app-section" id="market-controller"
+  >
+    ${back_button}
+    <h4>Market Controller</h4>
+
+    <div class="form-group">
+      <label>Open Trading Days</label>
+      <div class="code-box">
+        <textarea class="form-control code big" readonly>
+sudo vi regentmarkets/cpan/local/lib/perl5/auto/share/dist/Finance-Exchange/exchanges_trading_days_aliases.yml</textarea
+        >
+      </div>
+      <label>Restart Services</label>
+      <div class="code-box">
+        <textarea class="form-control code big" readonly>
+sudo service binary_rpc_redis_general restart; sudo service binary_websocket_api restart; sudo service binary_pricer_daemon restart; sudo service binary_starman_bom-backoffice restart</textarea
+        >
+      </div>
+    </div>
+  </div>
   </section>`,
   "market-controller": `
   <section class="main-wrapper">
     <section class="main-container market-controller">
     ${header} 
-      <div
-        class="app-section"
-        id="market-controller"
-        style="display: flex !important"
-      >
-        <h4>Market Controller</h4>
-
-        <div class="form-group">
-          <label>Open Trading Days</label>
-          <div class="code-box">
-            <textarea class="form-control code no-scroll" readonly>
-sudo vi regentmarkets/cpan/local/lib/perl5/auto/share/dist/Finance-Exchange/exchanges_trading_days_aliases.yml</textarea
-            >
-          </div>
-          <label>Restart Services</label>
-          <div class="code-box">
-            <textarea class="form-control code no-scroll" readonly>
-sudo service binary_rpc_redis_general restart; sudo service binary_websocket_api restart; sudo service binary_pricer_daemon restart; sudo service binary_starman_bom-backoffice restart</textarea
-            >
-          </div>
-        </div>
-      </div>
+     
     </section>
   </section>`,
 };

@@ -80,9 +80,6 @@ const initFunctions = () => {
     });
 
   $("#app-id-query-generator-btn").click(function () {
-    $("#aig-p1").hide();
-    $("#aig-p2").show();
-
     const now = new Date();
     const epoch = Math.round(now.getTime() / 1000);
     const prefix = $("#app-id-generator #prefix").val();
@@ -90,11 +87,20 @@ const initFunctions = () => {
 
     const link = $("#app-id-generator #link").val();
 
+    if ($.trim(link) == "") {
+      return false;
+    }
+
+    chrome.storage.local.set({ app_link: link });
+
     const app_id_deriv = $("#app-id-generator #app-id-deriv");
     const app_id_binary = $("#app-id-generator #app-id-binary");
 
     const deriv_query = `insert into oauth.apps (name, binary_user_id, active, redirect_uri, scopes, verification_uri) values ('${key}', 1, true, '${link}', '{read,admin,trade,payments}', '${link}/redirect');`;
     const binary_query = `insert into oauth.apps (name, binary_user_id, active, redirect_uri, scopes, verification_uri) values ('${key}', 1, true, '${link}/en/logged_inws.html', '{read,admin,trade,payments}', '${link}/en/redirect.html');`;
+
+    $("#aig-p1").hide();
+    $("#aig-p2").show();
 
     app_id_deriv.val(buildAppIdQuery(deriv_query, key));
     app_id_binary.val(buildAppIdQuery(binary_query, key));
@@ -241,7 +247,7 @@ const launch = (file) => {
 };
 
 const selectMenu = (e) => {
-  const popups = ["app-id-generator", "market-controller"];
+  const popups = [];
 
   if (popups.includes(e)) {
     launch(e);
@@ -267,6 +273,13 @@ const pageHandler = (e) => {
     case "top-up":
       {
         $(".account-id-input").val(DTools.account_id);
+      }
+      break;
+    case "app-id-generator":
+      {
+        chrome.storage.local.get("app_link", function (value) {
+          $("#link").val(value["app_link"]);
+        });
       }
       break;
   }
