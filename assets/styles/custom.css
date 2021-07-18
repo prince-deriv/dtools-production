@@ -253,6 +253,9 @@ label {
   height: 38px;
   min-width: 125px;
 }
+.small-input-group .input-group-text.md {
+  min-width: 80px;
+}
 .small-input-group .custom-select {
   outline: none !important;
 }

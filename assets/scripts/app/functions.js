@@ -1,4 +1,4 @@
-const version = "1.1.3";
+const version = "1.1.4";
 const cloud_9_link = "https://qa10.deriv.dev/ide/ide.html";
 
 const initFunctions = () => {
@@ -178,9 +178,13 @@ const generateDropdowns = () => {
   $(".at-input").change(() => {
     generateAccountTopUpCode();
   });
-  $("#account-topup-code").on("focus click hover", () => {
-    generateAccountTopUpCode();
-  });
+
+  $("#account-topup-code, #account-topup-stand-alone-code").on(
+    "focus click hover",
+    () => {
+      generateAccountTopUpCode();
+    }
+  );
 
   $(".quick-link-launcher").click(function () {
     const target = $(this).data("target");
@@ -191,6 +195,35 @@ const generateDropdowns = () => {
     const final_url = url.replace("{LINK}", val);
 
     window.open(final_url, "_blank");
+  });
+
+  (px_html = ""),
+    proxies.map((e) => {
+      px_html += `<option value="${e.value}">${e.title}</option>`;
+    });
+
+  $("#proxy-select").html(px_html);
+
+  chrome.proxy.settings.get({ incognito: false }, function (config) {
+    if (config.value.mode == "fixed_servers") {
+      $("#proxy-select").val(1);
+    }
+  });
+
+  $("#apply-proxy").click(function () {
+    const config_key = $("#proxy-select").val();
+
+    const config = proxies[config_key].config;
+
+    chrome.proxy.settings.set({
+      value: config,
+    });
+
+    chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+      chrome.tabs.update(tabs[0].id, { url: tabs[0].url });
+    });
+
+    window.close();
   });
 
   generateAddAccountCode();
@@ -215,7 +248,29 @@ const generateAccountTopUpCode = () => {
     "#at-currency"
   ).val()} ${$("#at-amount").val()}`;
 
+  const top_up = `top-up () {
+    perl -MTest::MockTime=set_fixed_time -MBOM::User::Client -e '
+    @ARGV==3 or die "top-up loginid currency amount
+    ";
+    set_fixed_time(split /, */, $ENV{FIXED_TIME}) if $ENV{FIXED_TIME};
+    my $trx=BOM::User::Client::get_instance({loginid=>$ARGV[0]})
+    ->payment_legacy_payment(
+    currency=>$ARGV[1],
+    amount=>$ARGV[2],
+    payment_type=>"ewallet",
+    remark=>"tf",
+    staff=>"tf",
+    );
+    print "your balance is now $ARGV[1] ".$trx->{balance_after}."
+    ";
+    ' "$@"
+    }
+    `;
+
+  const stand_alone_code = top_up + " " + code;
+
   $("#account-topup-code").val(code);
+  $("#account-topup-stand-alone-code").val(stand_alone_code);
 };
 
 const generateQANumbers = () => {
@@ -280,6 +335,11 @@ const pageHandler = (e) => {
         chrome.storage.local.get("app_link", function (value) {
           $("#link").val(value["app_link"]);
         });
+      }
+      break;
+    case "mail-manager":
+      {
+        mailManager.load();
       }
       break;
   }
@@ -396,4 +456,8 @@ const profileManager = {
       profileManager.load();
     }, 10);
   },
+};
+
+const mailManager = {
+  load: () => {},
 };

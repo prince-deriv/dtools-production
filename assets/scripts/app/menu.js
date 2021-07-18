@@ -36,6 +36,11 @@ const menu = [
     title: "Market Controller",
     target: "market-controller",
   },
+  {
+    icon: "dizzy",
+    title: "Proxy Manager",
+    target: "proxy-manager",
+  },
 ];
 
 const renderMenu = () => {

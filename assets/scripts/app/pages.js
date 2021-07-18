@@ -209,10 +209,17 @@ const pages = {
                     ></textarea>
                   </div>
                 </div>
-              </div>
-      
-              <div class="footer-btn">
-                <a id="cloud-9-link" href="#" target="_blank">Cloud 9</a>
+
+                <div class="form-group">
+                  <label for="link">Stand-alone Code</label>
+                  <div class="code-box">
+                    <textarea
+                      class="form-control code big"
+                      id="account-topup-stand-alone-code"
+                      readonly
+                    ></textarea>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -329,6 +336,23 @@ sudo service binary_rpc_redis_general restart; sudo service binary_websocket_api
       </div>
     </div>
   </div>
+  
+  <div class="app-section" id="proxy-manager">
+  ${back_button}
+  <h4>Proxy Manager</h4>
+  <div>
+    <div class="form-group">
+      <div class="input-group mb-3 small-input-group">
+        <div class="input-group-prepend">
+          <label class="input-group-text md" for="qa-box-select">Proxy</label>
+        </div>
+        <select class="custom-select" id="proxy-select">
+        </select>
+        <button class="btn btn-primary" id="apply-proxy">Apply</button>
+      </div>
+    </div>
+ </div>
+</div>
   </section>`,
   "market-controller": `
   <section class="main-wrapper">

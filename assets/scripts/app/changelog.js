@@ -1,5 +1,12 @@
 const changelog = [
   {
+    version: "1.1.4",
+    date: "July 18 2021",
+    added: ["stand alone code for top-up","proxy settings"],
+    description:
+      "Added new feature proxy manager, allows chrome to gain proxy settings to access dedicated FE QA boxes",
+  },
+  {
     version: "1.1.3",
     date: "July 13 2021",
     added: ["enable dashboard checkbox","enable service worker checkbox"],

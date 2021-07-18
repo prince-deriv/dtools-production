@@ -482,5 +482,25 @@ qa_boxes = [
   "69",
   "",
   "",
+];
 
+proxies = [
+  {
+    title: "System",
+    value: 0,
+    config: {
+      mode: "system",
+    },
+  },
+  {
+    title: "FE QA boxes",
+    value: 1,
+    config: {
+      mode: "fixed_servers",
+      rules: {
+        fallbackProxy: { scheme: "socks5", port: 1337, host: "127.0.0.1" },
+        bypassList: [],
+      },
+    },
+  },
 ];
