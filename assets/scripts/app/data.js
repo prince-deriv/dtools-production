@@ -397,7 +397,25 @@ country_codes = [
   { code: "AX", code3: "ALA", name: "Åland Islands", number: "248" },
 ];
 
-currencies = ["USD", "EUR", "AUD", "GBP", "BTC", "LTC", "ETH"];
+currencies = [
+  "USD",
+  "EUR",
+  "AUD",
+  "GBP",
+  "BTC",
+  "LTC",
+  "ETH",
+  "USDC",
+  "BCH",
+  "DAI",
+  "USB",
+  "IDK",
+  "PAX",
+  "USDK",
+  "BUSD",
+  "EURS",
+  "USDT",
+];
 
 other_accounts = [
   {
