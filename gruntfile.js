@@ -9,8 +9,8 @@ module.exports = function (grunt) {
           "assets/scripts/app/changelog.js",
           "assets/scripts/app/data.js",
           "assets/scripts/app/menu.js",
-          "assets/scripts/app/functions.js",
-          "assets/scripts/app/pages.js",
+          "assets/scripts/app/functions/*",
+          "assets/scripts/app/pages/*",
           "assets/scripts/app/popup.js",
         ],
 

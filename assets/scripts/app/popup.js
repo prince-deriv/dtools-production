@@ -6,4 +6,4 @@ setTimeout(() => {
   initFunctions();
 }, 800);
 
-injectCss();
+

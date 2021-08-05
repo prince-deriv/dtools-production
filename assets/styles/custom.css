@@ -193,9 +193,7 @@ label {
   font-size: 12px;
 }
 .body-container {
-  overflow: auto;
   height: auto;
-  max-height: 450px;
 }
 [data-tooltip]:not([data-tooltip=""]) {
   position: relative;
@@ -269,4 +267,26 @@ label {
 }
 .form-check-input {
   margin-top: 0.47rem !important;
+}
+.offline-container {
+  display: flex;
+  background: #d6dadb;
+  padding: 10px;
+  margin: -5px 0 2px;
+  box-shadow: #abc 0 0 150px;
+}
+.offline-container .icon {
+  color: #373737;
+  font-size: 30px;
+  margin-right: 12px;
+  align-self: center;
+}
+.offline-container .alert-message {
+  color: #373737;
+  font-size: 11px;
+  font-weight: normal;
+}
+.offline-container .alert-message strong {
+  font-weight: bolder;
+  color: #4bb4b3;
 }

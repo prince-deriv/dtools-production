@@ -1,18 +1,17 @@
 const version = "1.1.4";
-const cloud_9_link = "https://qa10.deriv.dev/ide/ide.html";
 
 const initFunctions = () => {
-  // Jquery functions that are required to get loaded after the popup is rendered must be inside of this function
+  generateDropdowns();
+  popupLoad();
+  loadHotkeys();
+  offlineActions();
+  profileManager.init();
 
   $("#app-name").html(`DTools ${version}`);
-
-  $("#cloud-9-link").attr("href", cloud_9_link);
 
   $("#launch-btn").click(function () {
     launch();
   });
-
-  generateDropdowns();
 
   $(".router-link").click(function () {
     const section = $(this).data("target");
@@ -110,14 +109,9 @@ const initFunctions = () => {
     $("#aig-p2").hide();
     $("#aig-p1").show();
   });
-
-  profileManager.init();
-
-  popupLoad();
 };
 
 // Other Functions
-
 const popupLoad = () => {
   const main_container = $(".main-container");
 
@@ -287,177 +281,8 @@ const generateQANumbers = () => {
   $(".qa-box-input").html(options);
 };
 
-const close = () => {
-  window.close();
-};
-
-const launch = (file) => {
-  const popupWindow = window.open(
-    chrome.extension.getURL(`popup.html`),
-    file,
-    `resizable=0,width=${window_sizes[file][0]},height=${window_sizes[file][1]}`
-  );
-
-  window.close();
-};
-
-const selectMenu = (e) => {
-  const popups = [];
-
-  if (popups.includes(e)) {
-    launch(e);
-  } else {
-    $(".app-section").hide();
-    $(`#${e}`).css("display", "flex");
+const offlineActions = () => {
+  if (window.is_offline) {
+    $(".header .logo").hide();
   }
-};
-
-const pageHandler = (e) => {
-  switch (e) {
-    case "endpoint":
-      {
-        $("#endpoint-server").val(DTools.server_url);
-        $("#endpoint-app-id").val(DTools.app_id);
-        $("#enable-dashboard").prop("checked", DTools.is_dashboard == "true");
-        $("#enable-service-worker").prop(
-          "checked",
-          DTools.debug_service_worker == "1"
-        );
-      }
-      break;
-    case "top-up":
-      {
-        $(".account-id-input").val(DTools.account_id);
-      }
-      break;
-    case "app-id-generator":
-      {
-        chrome.storage.local.get("app_link", function (value) {
-          $("#link").val(value["app_link"]);
-        });
-      }
-      break;
-    case "mail-manager":
-      {
-        mailManager.load();
-      }
-      break;
-  }
-};
-
-const cleanKey = (key, prefix = "") => {
-  return key.replace(`dtools_${prefix}`, "");
-};
-
-const getUnix = () => {
-  return Math.floor(new Date().getTime() / 1000);
-};
-
-const css_files = [
-  `/assets/styles/custom.css?ver=${getUnix()}`,
-  `/assets/styles/bootstrap.css?ver=${getUnix()}`,
-];
-
-const injectCss = () => {
-  css_files.map((file) => {
-    link = document.createElement("link");
-    link.href = `${url}${file}`;
-    link.type = "text/css";
-    link.rel = "stylesheet";
-    document.getElementsByTagName("head")[0].appendChild(link);
-  });
-};
-
-const DTools = {
-  app_id: null,
-  server_url: null,
-  account_id: null,
-  is_dashboard: null,
-  debug_service_worker: null,
-  manageStorage: async () => {
-    [
-      "server_url",
-      "app_id",
-      "account_id",
-      "is_dashboard",
-      "debug_service_worker",
-    ].map((key) => {
-      chrome.storage.local.get(key, function (value) {
-        const val = value[key];
-        DTools[key] = val;
-      });
-    });
-  },
-};
-
-// Fetch Default Endpoint
-chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
-  var activeTab = tabs[0];
-  chrome.tabs.sendMessage(
-    activeTab.id,
-    {
-      action: "fetchEndPoint",
-    },
-    () => {
-      DTools.manageStorage();
-    }
-  );
-});
-
-// Profile Manager
-
-const profileManager = {
-  name: null,
-  photo: null,
-  email: null,
-  updated: false,
-  load: () => {
-    ["dtools_profile_name", "dtools_profile_photo", "dtools_profile_email"].map(
-      (key) => {
-        chrome.storage.local.get(key, function (value) {
-          const val = value[key];
-          const new_key = cleanKey(key, "profile_");
-
-          profileManager[new_key] = val;
-        });
-      }
-    );
-
-    const { name, photo, email, updated } = profileManager;
-
-    if (name && photo && email && !updated) {
-      profileManager.updated = true;
-
-      const profile_contaier = $(".profile-container");
-      profile_contaier.css("display", "flex");
-      profile_contaier.find(".photo").attr("src", photo);
-      profile_contaier.find(".name").html(name);
-      profile_contaier.find(".email").html(email);
-
-      // Other personalized data
-      const prefix = $("#prefix");
-      const aa_email = $("#aa-email");
-
-      const first_name = name.split(" ")[0].toLowerCase();
-
-      if (prefix.val() == "Dtools" || $.trim(prefix.val()) == "") {
-        prefix.val(first_name);
-      }
-
-      if ($.trim(aa_email.val()) == "") {
-        aa_email.val(first_name + "@deriv.com");
-      }
-    }
-  },
-  init: () => {
-    profileManager.load();
-
-    setInterval(() => {
-      profileManager.load();
-    }, 10);
-  },
-};
-
-const mailManager = {
-  load: () => {},
 };

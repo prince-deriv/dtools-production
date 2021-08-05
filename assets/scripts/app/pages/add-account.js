@@ -1,0 +1,62 @@
+const page_add_account = `
+<div class="app-section" id="add-account">
+${page_back_button}
+<h4>Generate Account</h4>
+  <div class="form-group">
+    <label for="">Email</label>
+    <input
+      type="email"
+      class="form-control aa-input"
+      id="aa-email"
+      placeholder="jane+doe@deriv.com"
+      value=""
+    />
+  </div>
+  <div class="form-group">
+    <label for="">Broker Code</label>
+    <select
+      type="text"
+      class="form-control aa-input"
+      id="aa-broker-code"
+    ></select>
+  </div>
+
+  <div class="form-group">
+    <label for="">Country Code</label>
+    <select
+      type="text"
+      class="form-control aa-input"
+      id="aa-country-code"
+    ></select>
+  </div>
+
+  <div class="form-group">
+    <label for="">Currency</label>
+    <select
+      type="text"
+      class="form-control aa-input"
+      id="aa-currency"
+    ></select>
+  </div>
+
+  <div class="form-group">
+    <label for="">Account Type</label>
+    <select
+      type="text"
+      class="form-control aa-input"
+      id="aa-account-type"
+    ></select>
+  </div>
+
+  <div class="form-group">
+    <label for="link">Code</label>
+    <div class="code-box">
+      <textarea
+        class="form-control code"
+        id="add-account-code"
+        readonly
+      ></textarea>
+    </div>
+  </div>
+</div>
+`;
