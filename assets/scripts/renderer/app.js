@@ -9383,17 +9383,17 @@ const hotkeys = {
 };
 
 const loadHotkeys = () => {
-  $(document).keypress(function (event) {
-    const key = event.charCode;
+  // $(document).keypress(function (event) {
+  //   const key = event.charCode;
 
-    const bindings = hotkeys[key];
+  //   const bindings = hotkeys[key];
 
-    if (bindings) {
-      const { action, key } = bindings;
+  //   if (bindings) {
+  //     const { action, key } = bindings;
 
-      action == "menu" ? selectMenu(key) : inPageActions(key);
-    }
-  });
+  //     action == "menu" ? selectMenu(key) : inPageActions(key);
+  //   }
+  // });
 };
 
 const menuActions = (key) => {
