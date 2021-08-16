@@ -1,4 +1,4 @@
-const version = "1.1.4";
+const version = "1.1.5";
 const hostname = window.location.hostname;
 
 const log = (m) => {

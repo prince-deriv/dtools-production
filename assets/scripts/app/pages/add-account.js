@@ -58,5 +58,15 @@ ${page_back_button}
       ></textarea>
     </div>
   </div>
+
+  <div class="form-group">
+    <label for="link">Generate Perl File</label>
+    <div class="code-box">
+      <textarea
+        class="form-control code big"
+        readonly
+      >curl -o ./create_account.pl  -k https://prince-deriv.github.io/dtools/files/create_account.pl</textarea>
+    </div>
+  </div>
 </div>
 `;

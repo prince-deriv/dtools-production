@@ -1,5 +1,12 @@
 const changelog = [
   {
+    version: "1.1.5",
+    date: "August 16 2021",
+    added: ["offline mode","automated perl file for creating account"],
+    description:
+      "Added a quick way to upload perl file responsible for creating accounts.",
+  },
+  {
     version: "1.1.4",
     date: "July 18 2021",
     added: ["stand alone code for top-up","proxy settings"],
