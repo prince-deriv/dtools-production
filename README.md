@@ -23,3 +23,11 @@ If you are changing both popup and background scripts
 1. Open `assets/scripts/popup.js`,`assets/scripts/content.js`,`assets/scripts/popup.js` and change `env` variable to `local`
 
 Then load the extension package to google chrome after the change. 
+
+
+## Deployment
+
+1. Add changes to files 
+2. Commit your changes
+3. Deploy using `npm run deploy` command
+
