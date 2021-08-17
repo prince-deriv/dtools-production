@@ -1,5 +1,3 @@
-//  Global Variables and Configurations
-const version = "1.1.5";
 const hostname = window.location.hostname;
 
 const log = (m) => {

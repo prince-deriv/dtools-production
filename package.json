@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "description": "Tools for Deriv FE Team",
   "scripts": {
-    "dev": " npm-run-all --parallel serve less watch watch:css",
-    "watch": "onchange 'assets/scripts/app/*.js' 'assets/scripts/app/*/*.js' 'assets/scripts/background/*.js' 'assets/scripts/content/*.js'  -- npm run compile",
+    "dev": " npm-run-all --parallel serve less watch watch:css compile",
+    "watch": "onchange 'assets/scripts/config.js' 'assets/scripts/app/*.js' 'assets/scripts/app/*/*.js' 'assets/scripts/background/index.js' 'assets/scripts/content/index.js'  -- npm run compile",
     "watch:css": "onchange 'assets/less/*.less' -- npm run css-builder",
     "compile": "grunt && npm run obfuscate",
     "css-builder": "node scripts/css-builder.js",

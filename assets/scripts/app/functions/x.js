@@ -1,5 +1,3 @@
-const version = "1.1.5";
-
 const initFunctions = () => {
   generateDropdowns();
   popupLoad();

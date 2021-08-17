@@ -24,6 +24,7 @@ const pages = {
   "": `
     <section class="main-container">
       ${page_header}
+      ${window.env == "local" ? page_local_dev : null}
       ${window.is_offline ? page_offline_banner : page_profile}  
     
       <div class="body-container">

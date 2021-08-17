@@ -1,9 +1,9 @@
 module.exports = function (grunt) {
   grunt.initConfig({
     concat: {
-      options: {},
-      dist: {
+      app: {
         src: [
+          "assets/scripts/config.js",
           "assets/scripts/app/plugins/fa.js",
           "assets/scripts/app/plugins/jquery.js",
           "assets/scripts/app/changelog.js",
@@ -16,7 +16,13 @@ module.exports = function (grunt) {
 
         dest: "assets/scripts/renderer/app.js",
       },
+      content: {
+        src: ["assets/scripts/config.js", "assets/scripts/content/index.js"],
+
+        dest: "assets/scripts/content/content.js",
+      },
     },
+
     // uglify: {
     //   app: {
     //     src: "assets/scripts/renderer/app.js",
