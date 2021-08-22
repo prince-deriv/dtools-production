@@ -52,7 +52,7 @@ ${page_back_button}
     <label for="link">Code</label>
     <div class="code-box">
       <textarea
-        class="form-control code"
+        class="form-control code mid"
         id="add-account-code"
         readonly
       ></textarea>
@@ -68,5 +68,16 @@ ${page_back_button}
       >curl -o ./create_account.pl  -k https://prince-deriv.github.io/dtools/files/create_account.pl</textarea>
     </div>
   </div>
+
+  <div class="form-group">
+  <label for="link">Hide Error Validation</label>
+  <div class="code-box">
+    <textarea
+      id="hide_error_validation"
+      class="form-control code big"
+      readonly
+    ></textarea>
+  </div>
+</div>
 </div>
 `;

@@ -1,5 +1,12 @@
 const changelog = [
   {
+    version: "1.1.6",
+    date: "August 22 2021",
+    added: ["Code for hiding error validation on account creation"],
+    description:
+      "Ability to turn off error validation in some QA boxes in order to proceed to normal account creation via perl scripts.",
+  },
+  {
     version: "1.1.5",
     date: "August 16 2021",
     added: ["offline mode","automated perl file for creating account"],

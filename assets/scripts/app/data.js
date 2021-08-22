@@ -522,3 +522,11 @@ proxies = [
     },
   },
 ];
+
+database_accounts = {
+  CR: "cr01",
+  VRTC: "vr01",
+  MF: "mf01",
+  MLT: "mlt01",
+  MX: "mx01",
+};

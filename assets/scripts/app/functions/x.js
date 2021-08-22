@@ -163,11 +163,11 @@ const generateDropdowns = () => {
 
   $("#aa-account-type").html(at_html);
 
-  $(".aa-input").change(() => {
+  $(".aa-input").on("change blur focus click", () => {
     generateAddAccountCode();
   });
 
-  $(".at-input").change(() => {
+  $(".at-input").on("change blur focus click", () => {
     generateAccountTopUpCode();
   });
 
@@ -226,13 +226,23 @@ const generateDropdowns = () => {
 const generateAddAccountCode = () => {
   const country_code = $("#aa-country-code").val();
 
-  const code = `perl create_account.pl ${$("#aa-email").val()} ${$(
-    "#aa-broker-code"
-  ).val()} ${country_code && country_code.toLowerCase()}  ${$(
-    "#aa-currency"
-  ).val()}  ${$("#aa-account-type").val()}`;
+  const email = $("#aa-email").val();
+  const broker_code = $("#aa-broker-code").val();
+  const account_type = $("#aa-account-type").val();
+  const currency = $("#aa-currency").val();
+
+  const code = `perl create_account.pl ${email} ${broker_code}  ${
+    country_code && country_code.toLowerCase()
+  }  ${currency} ${account_type} `;
 
   $("#add-account-code").val(code);
+
+  // Hide Error Validation code
+  const database_code = database_accounts[broker_code];
+
+  const error_validation_code = `echo $"drop trigger validate_transaction_time_trg on transaction.transaction" | sudo -u pgadmin psql -U pgadmin service=${database_code}`;
+
+  $("#hide_error_validation").val(error_validation_code);
 };
 
 const generateAccountTopUpCode = () => {
