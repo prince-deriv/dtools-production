@@ -9974,7 +9974,7 @@ const page_app_id_generator = `
 const page_endpoint_manager = `
 <div class="app-section" id="endpoint">
     ${page_back_button}
-    <h4>Change API Endpoint</h4>
+    <h4>API Endpoint</h4>
     <div class="form-group">
     <label for="">Server:</label>
     <input
