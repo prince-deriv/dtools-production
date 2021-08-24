@@ -530,3 +530,25 @@ database_accounts = {
   MLT: "mlt01",
   MX: "mx01",
 };
+
+
+end_points = {
+  "app.deriv.com": 16929,
+  "binary.bot": 15438,
+  "binary.com": 14473,
+  "binary.me": 15284,
+  "bot.binary.com": 1169,
+  "bot.binary.me": 15438,
+  "deriv.app": 11780,
+  "deriv.app/bot": 19111,
+  "localhost": 9998,
+  "localhost.binary.sx": 9999,
+  "smarttrader.deriv.app": 22168,
+  "staging-app.deriv.com": 16303,
+  "staging.binary.com": 1098,
+  "staging.deriv.app/bot": 19112,
+  "ticktrade.binary.com": 10,
+  "ticktrade.binary.me": 15488,
+  "webtrader.binary.com": 11,
+  "webtrader.binary.me": 15437,
+}

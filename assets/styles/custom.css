@@ -260,6 +260,12 @@ label {
 .small-input-group .input-group-text.md {
   min-width: 80px;
 }
+.small-input-group .input-group-text.sm {
+  min-width: 50px;
+}
+.small-input-group .input-group-text.xs {
+  min-width: 30px;
+}
 .small-input-group .custom-select {
   outline: none !important;
 }

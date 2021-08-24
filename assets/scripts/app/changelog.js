@@ -1,5 +1,12 @@
 const changelog = [
   {
+    version: "1.1.7",
+    date: "August 24 2021",
+    added: ["QA10 Default APP IDs"],
+    description:
+      "Quick select QA default end points",
+  },
+  {
     version: "1.1.6",
     date: "August 22 2021",
     added: ["Code for hiding error validation on account creation"],

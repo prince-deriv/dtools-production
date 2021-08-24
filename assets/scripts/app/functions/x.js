@@ -61,8 +61,9 @@ const initFunctions = () => {
     close();
   });
 
-  $("#qa-endpoint").click(() => {
-    $("#endpoint-app-id").val("9999");
+  $("#apply-quick-endpoint").click(() => {
+    const app_id = $('.endpoints-box-select').val();
+    $("#endpoint-app-id").val(app_id);
     $("#endpoint-server").val("qa10.deriv.dev");
   });
 
@@ -221,6 +222,7 @@ const generateDropdowns = () => {
   generateAddAccountCode();
   generateAccountTopUpCode();
   generateQANumbers();
+  generateEndPoints();
 };
 
 const generateAddAccountCode = () => {
@@ -287,6 +289,17 @@ const generateQANumbers = () => {
   }
 
   $(".qa-box-input").html(options);
+};
+
+const generateEndPoints = () => {
+  let options = "";
+
+  Object.keys(end_points).forEach((key) => {
+    const value = end_points[key];
+    options += `<option value="${value}">${key}</option>`;
+  });
+
+  $(".endpoints-box-select").html(options);
 };
 
 const offlineActions = () => {
