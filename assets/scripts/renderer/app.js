@@ -1089,6 +1089,12 @@ const css = ['body%20%7B'
 ,'%20%20font-weight%3A%20bolder%3B' 
 ,'%20%20color%3A%20%234bb4b3%3B' 
 ,'%7D' 
+,'.note-msg%20%7B' 
+,'%20%20display%3A%20flex%3B' 
+,'%20%20padding%3A%205px%3B' 
+,'%20%20font-size%3A%2010px%3B' 
+,'%20%20font-weight%3A%20100%3B' 
+,'%7D' 
 ,'%3Aroot%20%7B' 
 ,'%20%20--blue%3A%20%23007bff%3B' 
 ,'%20%20--indigo%3A%20%236610f2%3B' 
@@ -9411,6 +9417,7 @@ const eManager = {
     account_id: null,
     is_dashboard: null,
     debug_service_worker: null,
+    client_details: null,
     manageStorage: async () => {
       [
         "server_url",
@@ -9418,6 +9425,7 @@ const eManager = {
         "account_id",
         "is_dashboard",
         "debug_service_worker",
+        "client_details"
       ].map((key) => {
         chrome.storage.local.get(key, function (value) {
           const val = value[key];
@@ -9491,6 +9499,7 @@ const pageHandler = (e) => {
     case "top-up":
       {
         $(".account-id-input").val(eManager.account_id);
+        generateAccountTopUpCode();
       }
       break;
     case "app-id-generator":
@@ -9624,7 +9633,7 @@ const initFunctions = () => {
   });
 
   $("#apply-quick-endpoint").click(() => {
-    const app_id = $('.endpoints-box-select').val();
+    const app_id = $(".endpoints-box-select").val();
     $("#endpoint-app-id").val(app_id);
     $("#endpoint-server").val("qa10.deriv.dev");
   });
@@ -9810,9 +9819,41 @@ const generateAddAccountCode = () => {
 };
 
 const generateAccountTopUpCode = () => {
-  const code = `top-up ${$("#at-account-id").val()} ${$(
+  const input_account_id = $("#at-account-id").val();
+  let amount = $("#at-amount").val();
+  const { balance, currency } = eManager.client_details;
+  const account_id = eManager.account_id;
+
+  const is_current_account = input_account_id === account_id;
+  const msg = is_current_account
+    ? `Current Balance: ${balance} ${currency}`
+    : "Automated computation for the total balance is not applicable";
+
+  $("#at-amount-msg").html(msg);
+
+  if (is_current_account) {
+    if (typeof topup_balance_loaded == "undefined") {
+      $("#at-amount").val(balance);
+      topup_balance_loaded = true;
+    }
+
+    const float_amount = parseFloat(amount);
+    const float_balance = parseFloat(balance);
+    const required_amount = float_amount - float_balance;
+
+    console.log(
+      `${float_balance} < ${float_amount} : ${float_balance < float_amount}`
+    );
+
+    amount =
+      float_balance < float_amount ? required_amount : required_amount * 1;
+  }
+
+  amount = parseFloat(amount).toFixed(2);
+
+  const code = `top-up ${input_account_id} ${$(
     "#at-currency"
-  ).val()} ${$("#at-amount").val()}`;
+  ).val()} ${amount}`;
 
   const top_up = `top-up () {
     perl -MTest::MockTime=set_fixed_time -MBOM::User::Client -e '
@@ -10197,6 +10238,7 @@ const page_topup = `
         placeholder=""
         value="1000"
         />
+        <span id="at-amount-msg" class="note-msg"></span>
     </div>
 
     <div class="form-group">

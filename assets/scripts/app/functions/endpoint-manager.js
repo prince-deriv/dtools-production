@@ -4,6 +4,7 @@ const eManager = {
     account_id: null,
     is_dashboard: null,
     debug_service_worker: null,
+    client_details: null,
     manageStorage: async () => {
       [
         "server_url",
@@ -11,6 +12,7 @@ const eManager = {
         "account_id",
         "is_dashboard",
         "debug_service_worker",
+        "client_details"
       ].map((key) => {
         chrome.storage.local.get(key, function (value) {
           const val = value[key];

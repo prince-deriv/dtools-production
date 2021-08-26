@@ -62,7 +62,7 @@ const initFunctions = () => {
   });
 
   $("#apply-quick-endpoint").click(() => {
-    const app_id = $('.endpoints-box-select').val();
+    const app_id = $(".endpoints-box-select").val();
     $("#endpoint-app-id").val(app_id);
     $("#endpoint-server").val("qa10.deriv.dev");
   });
@@ -248,9 +248,41 @@ const generateAddAccountCode = () => {
 };
 
 const generateAccountTopUpCode = () => {
-  const code = `top-up ${$("#at-account-id").val()} ${$(
+  const input_account_id = $("#at-account-id").val();
+  let amount = $("#at-amount").val();
+  const { balance, currency } = eManager.client_details;
+  const account_id = eManager.account_id;
+
+  const is_current_account = input_account_id === account_id;
+  const msg = is_current_account
+    ? `Current Balance: ${balance} ${currency}`
+    : "Automated computation for the total balance is not applicable";
+
+  $("#at-amount-msg").html(msg);
+
+  if (is_current_account) {
+    if (typeof topup_balance_loaded == "undefined") {
+      $("#at-amount").val(balance);
+      topup_balance_loaded = true;
+    }
+
+    const float_amount = parseFloat(amount);
+    const float_balance = parseFloat(balance);
+    const required_amount = float_amount - float_balance;
+
+    console.log(
+      `${float_balance} < ${float_amount} : ${float_balance < float_amount}`
+    );
+
+    amount =
+      float_balance < float_amount ? required_amount : required_amount * 1;
+  }
+
+  amount = parseFloat(amount).toFixed(2);
+
+  const code = `top-up ${input_account_id} ${$(
     "#at-currency"
-  ).val()} ${$("#at-amount").val()}`;
+  ).val()} ${amount}`;
 
   const top_up = `top-up () {
     perl -MTest::MockTime=set_fixed_time -MBOM::User::Client -e '

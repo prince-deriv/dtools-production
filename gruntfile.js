@@ -22,7 +22,6 @@ module.exports = function (grunt) {
         dest: "assets/scripts/content/content.js",
       },
     },
-
     // uglify: {
     //   app: {
     //     src: "assets/scripts/renderer/app.js",

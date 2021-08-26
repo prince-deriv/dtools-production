@@ -30,6 +30,7 @@ const page_topup = `
         placeholder=""
         value="1000"
         />
+        <span id="at-amount-msg" class="note-msg"></span>
     </div>
 
     <div class="form-group">

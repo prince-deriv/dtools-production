@@ -302,3 +302,9 @@ label {
   font-weight: bolder;
   color: #4bb4b3;
 }
+.note-msg {
+  display: flex;
+  padding: 5px;
+  font-size: 10px;
+  font-weight: 100;
+}

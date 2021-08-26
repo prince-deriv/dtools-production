@@ -185,9 +185,13 @@ const isStaging = (domain = window.location.hostname) => {
 };
 
 const fetchEndPoint = () => {
+  const account_id = localStorage["active_loginid"];
+  const client_details = JSON.parse(localStorage["client.accounts"]);
+
   chrome.storage.local.set({ app_id: getAppId() });
   chrome.storage.local.set({ server_url: getSocketURL() });
-  chrome.storage.local.set({ account_id: localStorage["active_loginid"] });
+  chrome.storage.local.set({ account_id });
+  chrome.storage.local.set({ client_details: client_details[account_id] });
   chrome.storage.local.set({ is_dashboard: localStorage["is_dashboard"] });
   chrome.storage.local.set({
     debug_service_worker: localStorage["debug_service_worker"],

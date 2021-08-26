@@ -14,6 +14,7 @@ const pageHandler = (e) => {
     case "top-up":
       {
         $(".account-id-input").val(eManager.account_id);
+        generateAccountTopUpCode();
       }
       break;
     case "app-id-generator":
