@@ -3,7 +3,7 @@ const menu_pages = [
   page_app_id_generator,
   page_endpoint_manager,
   page_market_controller,
-  page_proxy_manager,
+  // page_proxy_manager,
   page_quick_links,
   page_topup,
 ];
