@@ -14,14 +14,14 @@ Follow the steps here: [Dtools](https://github.com/prince-deriv/dtools-productio
 2. Install dependencies
 
 ```sh
-   npm install
-    ```
+   npm install 
+```
 
 3. Run local development
 
 ```sh
    npm run dev
-    ```
+```
 
 ### Environment
  *** In order for your changes to show in the extension: ***
@@ -37,4 +37,4 @@ Follow the steps here: [Dtools](https://github.com/prince-deriv/dtools-productio
 2. Commit your changes
 3. Deploy using `npm run deploy` command
 
-````
+
