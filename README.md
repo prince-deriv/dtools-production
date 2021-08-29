@@ -24,7 +24,7 @@ Follow the steps here: [Dtools](https://github.com/prince-deriv/dtools-productio
 ```
 
 ### Environment
- ** In order for your changes to show in the extension: **
+ **In order for your changes to show in the extension:**
 
 1. In Chrome Browser click the `Dtools` popup and make 10 clicks within 2 seconds to switch to local environment.
 2. Local Environment indicator will show up in the `Dtools` extension popup itself.
