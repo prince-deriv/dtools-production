@@ -35,6 +35,11 @@ Follow the steps here: [Dtools](https://github.com/prince-deriv/dtools-productio
 
 1. Add changes to files
 2. Commit your changes
-3. Deploy using `npm run deploy` command
+3. Deploy changes by running 
+
+```sh
+  npm run deploy
+```
+
 
 
