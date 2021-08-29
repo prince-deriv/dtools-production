@@ -1,5 +1,12 @@
 const changelog = [
   {
+    version: "1.1.8",
+    date: "August 29 2021",
+    added: ["Ability to run local copy when no new updates from the live source code"],
+    description:
+      "Speed up loading time by running local copy when no new updates instead of fetching everytime the extension popup is triggered.",
+  },
+  {
     version: "1.1.7",
     date: "August 24 2021",
     added: ["QA10 Default APP IDs"],
