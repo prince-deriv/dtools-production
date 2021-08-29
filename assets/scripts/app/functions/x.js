@@ -5,7 +5,7 @@ const initFunctions = () => {
   offlineActions();
   profileManager.init();
 
-  $("#app-name").html(`DTools ${version}`);
+  $("#app-name").html(`DTools ${version}${feature_version}`);
 
   $("#launch-btn").click(function () {
     launch();
