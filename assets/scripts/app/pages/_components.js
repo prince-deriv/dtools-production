@@ -3,7 +3,7 @@ const page_name = window.name;
 const page_header = `
     <div class="header">
         <img class="logo" src="${url}/assets/images/icon.png" />
-        <span class="app-name" id="app-name"></span>
+        <span class="app-name" id="app-name"></span>*
         ${
           page_name == ""
             ? `<span class="update-icon router-link" data-target="changelog">
