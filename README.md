@@ -1,6 +1,6 @@
 # DTools
 
-A simple google chrome extension made for <span style="color:#ff444f">**Deriv FE Team**</span> for easier and faster development experience.
+A simple google chrome extension made for <span style="color:red">**Deriv FE Team**</span> for easier and faster development experience.
 
 ## Local Development
 
