@@ -3,6 +3,7 @@ const initFunctions = () => {
   popupLoad();
   loadHotkeys();
   offlineActions();
+  applyDarkTheme();
   profileManager.init();
 
   $("#app-name").html(`DTools ${version}${feature_version}`);
@@ -10,15 +11,6 @@ const initFunctions = () => {
   $("#launch-btn").click(function () {
     launch();
   });
-
-  // Theme
-
-  const is_dark_theme = localStorage["dark_theme"];
-
-  if (is_dark_theme === "1") {
-    $("#dark-mode-input").prop("checked", true);
-    $("body").addClass("dark-theme");
-  }
 
   $(".router-link").click(function () {
     const section = $(this).data("target");
@@ -366,3 +358,15 @@ const loadSettings = () => {
     localStorage["dark_theme"] = dark_theme;
   });
 };
+
+// Theme
+const applyDarkTheme = () => {
+  const is_dark_theme = localStorage["dark_theme"];
+
+  if (is_dark_theme === "1") {
+    $("#dark-mode-input").prop("checked", true);
+    $("body").addClass("dark-theme");
+  }
+};
+
+applyDarkTheme();
