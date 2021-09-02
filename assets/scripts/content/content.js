@@ -1,6 +1,6 @@
 //  Global Variables and Configurations
 const version = "1.1.9";
-const feature_version = "b";
+const feature_version = "c";
 
 const hostname = window.location.hostname;
 

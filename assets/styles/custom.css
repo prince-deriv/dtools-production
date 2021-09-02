@@ -72,12 +72,12 @@ label {
 }
 .main-container {
   display: none;
-  border: solid 1px #ddd;
+  border: solid 1px #dddddd;
 }
 .main-container .header {
   display: flex;
   padding: 8px;
-  border-bottom: solid 1px #ddd;
+  border-bottom: solid 1px #dddddd;
   margin-bottom: 5px;
   align-items: center;
 }
@@ -183,7 +183,7 @@ label {
 .profile-container {
   display: none;
   align-items: center;
-  border-bottom: solid 1px #ddd;
+  border-bottom: solid 1px #dddddd;
   padding: 10px;
 }
 .profile-container .photo {
@@ -243,7 +243,7 @@ label {
 #changelog-container .log-item {
   display: flex;
   flex-direction: column;
-  border-top: solid 1px #ddd;
+  border-top: solid 1px #dddddd;
   margin: 0;
   padding: 10px;
 }
@@ -390,6 +390,9 @@ body.dark-theme .app-name {
 }
 body.dark-theme .top-icon.settings {
   color: #ff444f !important;
+}
+body.dark-theme .main-container {
+  border: solid 1px #373737;
 }
 body.dark-theme .offline-container {
   background: #373737 !important;

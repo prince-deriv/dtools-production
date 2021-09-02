@@ -3,6 +3,7 @@
 @d-green: #4bb4b3;
 @d-white: #f2f3f4;
 @d-black: #151717;
+@d-dirty-white: #dddddd;
 
 body {
   min-width: 300px;
@@ -96,12 +97,12 @@ label {
 .main-container {
   display: none;
   // width: 300px;
-  border: solid 1px #ddd;
+  border: solid 1px @d-dirty-white;
 
   .header {
     display: flex;
     padding: 8px;
-    border-bottom: solid 1px #ddd;
+    border-bottom: solid 1px @d-dirty-white;
     margin-bottom: 5px;
     align-items: center;
 
@@ -231,7 +232,7 @@ label {
 .profile-container {
   display: none;
   align-items: center;
-  border-bottom: solid 1px #ddd;
+  border-bottom: solid 1px @d-dirty-white;
   padding: 10px;
 
   .photo {
@@ -310,7 +311,7 @@ label {
   .log-item {
     display: flex;
     flex-direction: column;
-    border-top: solid 1px #ddd;
+    border-top: solid 1px @d-dirty-white;
     margin: 0;
     padding: 10px;
 
@@ -471,10 +472,6 @@ label {
 
 body {
   &.dark-theme {
-    // background: @d-black !important;
-    // background-color: @d-black !important;
-    // background-image: linear-gradient(315deg, @d-black 0%, #414141 74%);
-
     background: @d-black !important;
     background: -webkit-linear-gradient(to left, @d-gray, @d-black) !important;
     background: linear-gradient(to left, @d-gray, @d-black) !important;
@@ -497,6 +494,10 @@ body {
       &.settings {
         color: @d-red !important;
       }
+    }
+
+    .main-container {
+      border: solid 1px @d-gray;
     }
 
     .offline-container {
@@ -544,9 +545,9 @@ body {
     }
 
     .input-group-text {
-      background: #232526;  
-      background: -webkit-linear-gradient(to right, #414345, #232526);  
-      background: linear-gradient(to right, #414345, #232526); 
+      background: #232526;
+      background: -webkit-linear-gradient(to right, #414345, #232526);
+      background: linear-gradient(to right, #414345, #232526);
       color: @d-white !important;
     }
   }
