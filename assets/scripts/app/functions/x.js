@@ -11,6 +11,15 @@ const initFunctions = () => {
     launch();
   });
 
+  // Theme
+
+  const is_dark_theme = localStorage["dark_theme"];
+
+  if (is_dark_theme === "1") {
+    $("#dark-mode-input").prop("checked", true);
+    $("body").addClass("dark-theme");
+  }
+
   $(".router-link").click(function () {
     const section = $(this).data("target");
 
@@ -223,6 +232,7 @@ const generateDropdowns = () => {
   generateAccountTopUpCode();
   generateQANumbers();
   generateEndPoints();
+  loadSettings();
 };
 
 const generateAddAccountCode = () => {
@@ -338,4 +348,21 @@ const offlineActions = () => {
   if (window.is_offline) {
     $(".header .logo").hide();
   }
+};
+
+const loadSettings = () => {
+  $("#dark-mode-switcher").click(() => {
+    const isChecked = $("#dark-mode-input").is(":checked");
+    let dark_theme = null;
+
+    if (!isChecked) {
+      $("body").addClass("dark-theme");
+      dark_theme = "1";
+    } else {
+      $("body").removeClass("dark-theme");
+      dark_theme = "0";
+    }
+
+    localStorage["dark_theme"] = dark_theme;
+  });
 };

@@ -5,6 +5,7 @@ const menu_pages = [
   page_market_controller,
   // page_proxy_manager,
   page_quick_links,
+  page_settings,
   page_topup,
 ];
 

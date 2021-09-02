@@ -6,9 +6,16 @@ const page_header = `
         <span class="app-name" id="app-name"></span>
         ${
           page_name == ""
-            ? `<span class="update-icon router-link" data-target="changelog">
-          <i class="fas fa-bolt icon"></i>
-        </span>`
+            ? `
+            <div class="top-icon-box">
+              <span class="top-icon settings router-link" data-target="settings">
+                <i class="fas fa-cog icon"></i>
+              </span>
+              <span class="top-icon changelog router-link" data-target="changelog">
+                <i class="fas fa-bolt icon"></i>
+              </span>
+            </div>
+        `
             : ""
         }
     </div>`;

@@ -24,6 +24,11 @@ const pageHandler = (e) => {
         });
       }
       break;
+    case "settings":
+      {
+        loadSettings();
+      }
+      break;
     case "mail-manager":
       {
         mailManager.load();

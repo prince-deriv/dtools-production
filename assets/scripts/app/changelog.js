@@ -1,8 +1,16 @@
 const changelog = [
   {
     version: "1.1.8",
+    date: "September 2 2021",
+    added: ["Added dark theme options in the settings"],
+    description: "New page for settings.",
+  },
+  {
+    version: "1.1.8",
     date: "August 29 2021",
-    added: ["Ability to run local copy when no new updates from the live source code"],
+    added: [
+      "Ability to run local copy when no new updates from the live source code",
+    ],
     description:
       "Speed up loading time by running local copy when no new updates instead of fetching everytime the extension popup is triggered.",
   },
@@ -10,8 +18,7 @@ const changelog = [
     version: "1.1.7",
     date: "August 24 2021",
     added: ["QA10 Default APP IDs"],
-    description:
-      "Quick select QA default end points",
+    description: "Quick select QA default end points",
   },
   {
     version: "1.1.6",
@@ -23,21 +30,21 @@ const changelog = [
   {
     version: "1.1.5",
     date: "August 16 2021",
-    added: ["offline mode","automated perl file for creating account"],
+    added: ["offline mode", "automated perl file for creating account"],
     description:
       "Added a quick way to upload perl file responsible for creating accounts.",
   },
   {
     version: "1.1.4",
     date: "July 18 2021",
-    added: ["stand alone code for top-up","proxy settings"],
+    added: ["stand alone code for top-up", "proxy settings"],
     description:
       "Added new feature proxy manager, allows chrome to gain proxy settings to access dedicated FE QA boxes",
   },
   {
     version: "1.1.3",
     date: "July 13 2021",
-    added: ["enable dashboard checkbox","enable service worker checkbox"],
+    added: ["enable dashboard checkbox", "enable service worker checkbox"],
     description:
       "Added dashboad and service worker control on end point manager",
   },
@@ -45,8 +52,7 @@ const changelog = [
     version: "1.1.2",
     date: "July 12 2021",
     added: ["Quick Links"],
-    description:
-      "Quick links for QA boxes",
+    description: "Quick links for QA boxes",
   },
   {
     version: "1.1.1",

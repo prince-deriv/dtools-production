@@ -29,4 +29,10 @@ const selectMenu = (e) => {
     $(".app-section").hide();
     $(`#${e}`).css("display", "flex");
   }
+
+  if (e != "menu") {
+    $(".top-icon-box").hide();
+  } else {
+    $(".top-icon-box").show();
+  }
 };
