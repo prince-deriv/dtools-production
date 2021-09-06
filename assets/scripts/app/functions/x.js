@@ -5,6 +5,7 @@ const initFunctions = () => {
   offlineActions();
   applyDarkTheme();
   profileManager.init();
+  cookieManager.init();
 
   $("#app-name").html(`DTools ${version}${feature_version}`);
 
@@ -66,6 +67,22 @@ const initFunctions = () => {
     const app_id = $(".endpoints-box-select").val();
     $("#endpoint-app-id").val(app_id);
     $("#endpoint-server").val("qa10.deriv.dev");
+  });
+
+  $("#apply-country-code").click(() => {
+    const new_country_code = $("#cc-country-code").val();
+
+    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+      var activeTab = tabs[0];
+      chrome.tabs.sendMessage(activeTab.id, {
+        action: "changeCountryCode",
+        data: {
+          country_code: new_country_code.toLowerCase(),
+        },
+      });
+    });
+
+    close();
   });
 
   $(".code-box")
@@ -139,7 +156,7 @@ const generateDropdowns = () => {
       cc_html += `<option value="${code}">${name} - ${code}</option>`;
     });
 
-  $("#aa-country-code").html(cc_html);
+  $(".aa-country-code").html(cc_html);
 
   (bc_html = ""),
     broker_codes.map((e) => {
@@ -272,10 +289,6 @@ const generateAccountTopUpCode = () => {
     const float_balance = parseFloat(balance);
     const required_amount = float_amount - float_balance;
 
-    console.log(
-      `${float_balance} < ${float_amount} : ${float_balance < float_amount}`
-    );
-
     amount =
       float_balance < float_amount ? required_amount : required_amount * 1;
   }
@@ -370,3 +383,22 @@ const applyDarkTheme = () => {
 };
 
 applyDarkTheme();
+
+/*
+
+function getCookie(cName) {
+      const name = cName + "=";
+      const cDecoded = decodeURIComponent(document.cookie); //to be careful
+      const cArr = cDecoded .split('; ');
+      let res;
+      cArr.forEach(val => {
+          if (val.indexOf(name) === 0) res = val.substring(name.length);
+      })
+      return res;
+}
+
+
+JSON.parse(JSON.parse(getCookie("website_status")).website_status)
+
+
+*/

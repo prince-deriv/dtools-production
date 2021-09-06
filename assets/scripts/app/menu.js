@@ -36,6 +36,11 @@ const menu = [
     title: "Market Controller",
     target: "market-controller",
   },
+  {
+    icon: "flag",
+    title: "Country & Residence",
+    target: "country-code",
+  },
   // {
   //   icon: "dizzy",
   //   title: "Proxy Manager",

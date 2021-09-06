@@ -1,6 +1,13 @@
 const changelog = [
   {
-    version: "1.1.8",
+    version: "1.1.10",
+    date: "September 6 2021",
+    added: ["Added country & residence controls"],
+    description:
+      "Country & Residence controller feature allows to temporarily override cookie data instead of changing user residence or using VPN",
+  },
+  {
+    version: "1.1.9",
     date: "September 2 2021",
     added: ["Added dark theme options in the settings"],
     description: "New page for settings.",

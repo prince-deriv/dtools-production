@@ -1,6 +1,170 @@
+/*!
+ * JavaScript Cookie v2.2.1
+ * https://github.com/js-cookie/js-cookie
+ *
+ * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
+ * Released under the MIT license
+ */
+;(function (factory) {
+	var registeredInModuleLoader;
+	if (typeof define === 'function' && define.amd) {
+		define(factory);
+		registeredInModuleLoader = true;
+	}
+	if (typeof exports === 'object') {
+		module.exports = factory();
+		registeredInModuleLoader = true;
+	}
+	if (!registeredInModuleLoader) {
+		var OldCookies = window.Cookies;
+		var api = window.Cookies = factory();
+		api.noConflict = function () {
+			window.Cookies = OldCookies;
+			return api;
+		};
+	}
+}(function () {
+	function extend () {
+		var i = 0;
+		var result = {};
+		for (; i < arguments.length; i++) {
+			var attributes = arguments[ i ];
+			for (var key in attributes) {
+				result[key] = attributes[key];
+			}
+		}
+		return result;
+	}
+
+	function decode (s) {
+		return s.replace(/(%[0-9A-Z]{2})+/g, decodeURIComponent);
+	}
+
+	function init (converter) {
+		function api() {}
+
+		function set (key, value, attributes) {
+			if (typeof document === 'undefined') {
+				return;
+			}
+
+			attributes = extend({
+				path: '/'
+			}, api.defaults, attributes);
+
+			if (typeof attributes.expires === 'number') {
+				attributes.expires = new Date(new Date() * 1 + attributes.expires * 864e+5);
+			}
+
+			// We're using "expires" because "max-age" is not supported by IE
+			attributes.expires = attributes.expires ? attributes.expires.toUTCString() : '';
+
+			try {
+				var result = JSON.stringify(value);
+				if (/^[\{\[]/.test(result)) {
+					value = result;
+				}
+			} catch (e) {}
+
+			value = converter.write ?
+				converter.write(value, key) :
+				encodeURIComponent(String(value))
+					.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
+
+			key = encodeURIComponent(String(key))
+				.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent)
+				.replace(/[\(\)]/g, escape);
+
+			var stringifiedAttributes = '';
+			for (var attributeName in attributes) {
+				if (!attributes[attributeName]) {
+					continue;
+				}
+				stringifiedAttributes += '; ' + attributeName;
+				if (attributes[attributeName] === true) {
+					continue;
+				}
+
+				// Considers RFC 6265 section 5.2:
+				// ...
+				// 3.  If the remaining unparsed-attributes contains a %x3B (";")
+				//     character:
+				// Consume the characters of the unparsed-attributes up to,
+				// not including, the first %x3B (";") character.
+				// ...
+				stringifiedAttributes += '=' + attributes[attributeName].split(';')[0];
+			}
+
+			return (document.cookie = key + '=' + value + stringifiedAttributes);
+		}
+
+		function get (key, json) {
+			if (typeof document === 'undefined') {
+				return;
+			}
+
+			var jar = {};
+			// To prevent the for loop in the first place assign an empty array
+			// in case there are no cookies at all.
+			var cookies = document.cookie ? document.cookie.split('; ') : [];
+			var i = 0;
+
+			for (; i < cookies.length; i++) {
+				var parts = cookies[i].split('=');
+				var cookie = parts.slice(1).join('=');
+
+				if (!json && cookie.charAt(0) === '"') {
+					cookie = cookie.slice(1, -1);
+				}
+
+				try {
+					var name = decode(parts[0]);
+					cookie = (converter.read || converter)(cookie, name) ||
+						decode(cookie);
+
+					if (json) {
+						try {
+							cookie = JSON.parse(cookie);
+						} catch (e) {}
+					}
+
+					jar[name] = cookie;
+
+					if (key === name) {
+						break;
+					}
+				} catch (e) {}
+			}
+
+			return key ? jar[key] : jar;
+		}
+
+		api.set = set;
+		api.get = function (key) {
+			return get(key, false /* read as raw */);
+		};
+		api.getJSON = function (key) {
+			return get(key, true /* read as json */);
+		};
+		api.remove = function (key, attributes) {
+			set(key, '', extend(attributes, {
+				expires: -1
+			}));
+		};
+
+		api.defaults = {};
+
+		api.withConverter = init;
+
+		return api;
+	}
+
+	return init(function () {});
+}));
+
 //  Global Variables and Configurations
-const version = "1.1.9";
-const feature_version = "c";
+const version = "1.1.10";
+const feature_version = "";
 
 const hostname = window.location.hostname;
 
@@ -34,6 +198,47 @@ messagehandler = (request, sender, sendResponse) => {
     case "fetchEndPoint":
       fetchEndPoint();
       break;
+    case "changeCountryCode":
+      const { country_code } = data;
+      const { website_status, client_information } = cookieBuilder;
+      const domain = getDomain();
+      const expiry = new Date("Thu, 1 Jan 2037 12:00:00 GMT");
+
+      if (country_code && website_status) {
+        log(`Updating country code to ${country_code}`);
+
+        const new_website_status = { ...website_status };
+
+        new_website_status.clients_country = country_code;
+
+        console.log(new_website_status);
+
+        Cookies.set(
+          "website_status",
+          JSON.stringify({
+            website_status: JSON.stringify(new_website_status),
+          }),
+          {
+            expires: expiry,
+            domain: domain,
+          }
+        );
+
+        if (client_information) {
+          const new_client_info = { ...client_information };
+
+          new_client_info.residence = country_code;
+
+          Cookies.set("client_information", JSON.stringify(new_client_info), {
+            expires: expiry,
+            domain: domain,
+          });
+        }
+
+        location.reload();
+      }
+
+      break;
   }
 };
 
@@ -48,6 +253,20 @@ const domain_app_ids = {
   "app.deriv.me": 1411,
   "binary.com": 1,
 };
+
+const deriv_com_url = "deriv.com";
+const deriv_me_url = "deriv.me";
+
+const supported_domains = [deriv_com_url, deriv_me_url];
+
+const domain_url = supported_domains.includes(window.location.hostname)
+  ? window.location.hostname
+  : deriv_com_url;
+
+const getDomain = () =>
+  window.location.hostname.includes(domain_url)
+    ? deriv_cookie_domain
+    : "binary.sx";
 
 const isBot = () =>
   /^\/bot/.test(window.location.pathname) ||
@@ -306,5 +525,44 @@ const versionChecker = {
   },
 };
 
+cookieBuilder = {
+  website_status: null,
+  client_information: null,
+  init: () => {
+    const domain = getDomain();
+
+    const website_status = Cookies.getJSON("website_status", {
+      domain,
+    });
+
+    const client_information = Cookies.getJSON("client_information", {
+      domain,
+    });
+
+    if (website_status != undefined) {
+      const ws = JSON.parse(website_status.website_status);
+
+      cookieBuilder.website_status = ws;
+
+      chrome.storage.local.set({
+        country_code: ws.clients_country,
+      });
+    } else {
+      chrome.storage.local.set({
+        country_code: null,
+      });
+    }
+
+    if (client_information) {
+      cookieBuilder.client_information = client_information;
+    }
+
+    setTimeout(() => {
+      cookieBuilder.init();
+    }, 10);
+  },
+};
+
 profileBuilder();
+cookieBuilder.init();
 versionChecker.run();

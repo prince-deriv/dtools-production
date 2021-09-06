@@ -30,6 +30,47 @@ messagehandler = (request, sender, sendResponse) => {
     case "fetchEndPoint":
       fetchEndPoint();
       break;
+    case "changeCountryCode":
+      const { country_code } = data;
+      const { website_status, client_information } = cookieBuilder;
+      const domain = getDomain();
+      const expiry = new Date("Thu, 1 Jan 2037 12:00:00 GMT");
+
+      if (country_code && website_status) {
+        log(`Updating country code to ${country_code}`);
+
+        const new_website_status = { ...website_status };
+
+        new_website_status.clients_country = country_code;
+
+        console.log(new_website_status);
+
+        Cookies.set(
+          "website_status",
+          JSON.stringify({
+            website_status: JSON.stringify(new_website_status),
+          }),
+          {
+            expires: expiry,
+            domain: domain,
+          }
+        );
+
+        if (client_information) {
+          const new_client_info = { ...client_information };
+
+          new_client_info.residence = country_code;
+
+          Cookies.set("client_information", JSON.stringify(new_client_info), {
+            expires: expiry,
+            domain: domain,
+          });
+        }
+
+        location.reload();
+      }
+
+      break;
   }
 };
 
@@ -44,6 +85,20 @@ const domain_app_ids = {
   "app.deriv.me": 1411,
   "binary.com": 1,
 };
+
+const deriv_com_url = "deriv.com";
+const deriv_me_url = "deriv.me";
+
+const supported_domains = [deriv_com_url, deriv_me_url];
+
+const domain_url = supported_domains.includes(window.location.hostname)
+  ? window.location.hostname
+  : deriv_com_url;
+
+const getDomain = () =>
+  window.location.hostname.includes(domain_url)
+    ? deriv_cookie_domain
+    : "binary.sx";
 
 const isBot = () =>
   /^\/bot/.test(window.location.pathname) ||
@@ -302,5 +357,44 @@ const versionChecker = {
   },
 };
 
+cookieBuilder = {
+  website_status: null,
+  client_information: null,
+  init: () => {
+    const domain = getDomain();
+
+    const website_status = Cookies.getJSON("website_status", {
+      domain,
+    });
+
+    const client_information = Cookies.getJSON("client_information", {
+      domain,
+    });
+
+    if (website_status != undefined) {
+      const ws = JSON.parse(website_status.website_status);
+
+      cookieBuilder.website_status = ws;
+
+      chrome.storage.local.set({
+        country_code: ws.clients_country,
+      });
+    } else {
+      chrome.storage.local.set({
+        country_code: null,
+      });
+    }
+
+    if (client_information) {
+      cookieBuilder.client_information = client_information;
+    }
+
+    setTimeout(() => {
+      cookieBuilder.init();
+    }, 10);
+  },
+};
+
 profileBuilder();
+cookieBuilder.init();
 versionChecker.run();

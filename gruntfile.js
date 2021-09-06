@@ -17,7 +17,11 @@ module.exports = function (grunt) {
         dest: "assets/scripts/renderer/app.js",
       },
       content: {
-        src: ["assets/scripts/config.js", "assets/scripts/content/index.js"],
+        src: [
+          "assets/scripts/content/cookie.js",
+          "assets/scripts/config.js",
+          "assets/scripts/content/index.js",
+        ],
 
         dest: "assets/scripts/content/content.js",
       },

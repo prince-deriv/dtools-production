@@ -1,6 +1,7 @@
 const menu_pages = [
   page_add_account,
   page_app_id_generator,
+  page_country_code,
   page_endpoint_manager,
   page_market_controller,
   // page_proxy_manager,

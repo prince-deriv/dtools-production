@@ -25,8 +25,8 @@ ${page_back_button}
     <label for="">Country Code</label>
     <select
       type="text"
-      class="form-control aa-input"
-      id="aa-country-code"
+      class="form-control aa-input aa-country-code"
+      id="aa-country-code" 
     ></select>
   </div>
 

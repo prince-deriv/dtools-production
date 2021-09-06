@@ -29,6 +29,12 @@ const pageHandler = (e) => {
         loadSettings();
       }
       break;
+    case "country-code":
+      {
+        const { country_code } = cookieManager;
+        $("#cc-country-code").val(country_code.toUpperCase());
+      }
+      break;
     case "mail-manager":
       {
         mailManager.load();

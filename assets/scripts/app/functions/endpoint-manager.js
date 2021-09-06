@@ -21,7 +21,6 @@ const eManager = {
         const val = value[key];
 
         if (val !== undefined) {
-          console.log(key, val);
           eManager[key] = val;
         }
       });
