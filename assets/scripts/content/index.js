@@ -1,4 +1,5 @@
 const hostname = window.location.hostname;
+const pathname = window.location.pathname;
 
 const log = (m) => {
   console.log(
@@ -42,8 +43,6 @@ messagehandler = (request, sender, sendResponse) => {
         const new_website_status = { ...website_status };
 
         new_website_status.clients_country = country_code;
-
-        console.log(new_website_status);
 
         Cookies.set(
           "website_status",
@@ -91,42 +90,34 @@ const deriv_me_url = "deriv.me";
 
 const supported_domains = [deriv_com_url, deriv_me_url];
 
-const domain_url = supported_domains.includes(window.location.hostname)
-  ? window.location.hostname
+const domain_url = supported_domains.includes(hostname)
+  ? hostname
   : deriv_com_url;
 
 const getDomain = () =>
-  window.location.hostname.includes(domain_url)
-    ? deriv_cookie_domain
-    : "binary.sx";
+  hostname.includes(domain_url) ? domain_url : "binary.sx";
 
 const isBot = () =>
-  /^\/bot/.test(window.location.pathname) ||
-  (/^\/(br_)/.test(window.location.pathname) &&
-    window.location.pathname.split("/")[2] === "bot");
+  /^\/bot/.test(pathname) ||
+  (/^\/(br_)/.test(pathname) && pathname.split("/")[2] === "bot");
 
 const isMT5 = () =>
-  /^\/mt5/.test(window.location.pathname) ||
-  (/^\/(br_)/.test(window.location.pathname) &&
-    window.location.pathname.split("/")[2] === "mt5");
+  /^\/mt5/.test(pathname) ||
+  (/^\/(br_)/.test(pathname) && pathname.split("/")[2] === "mt5");
 
 const getCurrentProductionDomain = () =>
-  !/^staging\./.test(window.location.hostname) &&
-  Object.keys(domain_app_ids).find(
-    (domain) => window.location.hostname === domain
-  );
+  !/^staging\./.test(hostname) &&
+  Object.keys(domain_app_ids).find((domain) => hostname === domain);
 
 const isProduction = () => {
   const all_domains = Object.keys(domain_app_ids).map(
     (domain) => `(www\\.)?${domain.replace(".", "\\.")}`
   );
-  return new RegExp(`^(${all_domains.join("|")})$`, "i").test(
-    window.location.hostname
-  );
+  return new RegExp(`^(${all_domains.join("|")})$`, "i").test(hostname);
 };
 
 const isTestLink = () => {
-  return /^((.*)\.binary\.sx)$/i.test(window.location.hostname);
+  return /^((.*)\.binary\.sx)$/i.test(hostname);
 };
 
 const getAppId = () => {
@@ -142,7 +133,7 @@ const getAppId = () => {
   } else if (isStaging()) {
     window.localStorage.removeItem("config.default_app_id");
     app_id = isBot() ? 19112 : 16303; // it's being used in endpoint chrome extension - please do not remove
-  } else if (/localhost/i.test(window.location.hostname)) {
+  } else if (/localhost/i.test(hostname)) {
     app_id = 17044;
   } else {
     window.localStorage.removeItem("config.default_app_id");
@@ -220,7 +211,7 @@ const getUrlSmartTrader = () => {
   return `${base_link}/${i18n_language.toLowerCase()}/trading.html`;
 };
 
-const getPlatformFromUrl = (domain = window.location.hostname) => {
+const getPlatformFromUrl = (domain = hostname) => {
   const resolutions = {
     is_staging_deriv_app: /^staging-app\.deriv\.com$/i.test(domain),
     is_deriv_app: /^app\.deriv\.com$/i.test(domain),
@@ -233,7 +224,7 @@ const getPlatformFromUrl = (domain = window.location.hostname) => {
   };
 };
 
-const isStaging = (domain = window.location.hostname) => {
+const isStaging = (domain = hostname) => {
   const { is_staging_deriv_app } = getPlatformFromUrl(domain);
 
   return is_staging_deriv_app;
