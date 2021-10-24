@@ -1,3 +1,3 @@
 //  Global Variables and Configurations
-const version = "1.1.10";
-const feature_version = "b";
+const version = "1.1.11";
+const feature_version = "";

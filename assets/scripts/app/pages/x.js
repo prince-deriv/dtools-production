@@ -8,6 +8,7 @@ const menu_pages = [
   page_quick_links,
   page_settings,
   page_topup,
+  page_deriv_static,
 ];
 
 const popup_pages = [];

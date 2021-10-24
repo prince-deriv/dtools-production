@@ -35,6 +35,22 @@ const pageHandler = (e) => {
         $("#cc-country-code").val(country_code.toUpperCase());
       }
       break;
+    case "deriv-static":
+      {
+        $("#login-to-account").hide();
+        $("#logout-to-account").hide();
+
+        chrome.storage.local.get("is_logged_in", function (value) {
+          if (value["is_logged_in"]) {
+            $("#login-to-account").hide();
+            $("#logout-to-account").show();
+          } else {
+            $("#login-to-account").show();
+            $("#logout-to-account").hide();
+          }
+        });
+      }
+      break;
     case "mail-manager":
       {
         mailManager.load();

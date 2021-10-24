@@ -1,5 +1,11 @@
 const changelog = [
   {
+    version: "1.1.11",
+    date: "October 24 2021",
+    added: ["Added Deriv Static controls"],
+    description: "Ability to login to Deriv Static in local environment",
+  },
+  {
     version: "1.1.10",
     date: "September 6 2021",
     added: ["Added country & residence controls"],

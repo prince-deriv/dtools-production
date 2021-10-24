@@ -163,8 +163,8 @@
 }));
 
 //  Global Variables and Configurations
-const version = "1.1.10";
-const feature_version = "b";
+const version = "1.1.11";
+const feature_version = "";
 
 const hostname = window.location.hostname;
 const pathname = window.location.pathname;
@@ -237,6 +237,27 @@ messagehandler = (request, sender, sendResponse) => {
         location.reload();
       }
 
+      break;
+    case "loginToAccount":
+      {
+        const { account } = data;
+
+        const key = "client_infos";
+
+        chrome.storage.local.get(key, function (value) {
+          let client_infos = value[key] ?? [];
+
+          Cookies.set(
+            "client_information",
+            JSON.stringify(client_infos[account])
+          );
+        });
+      }
+      break;
+    case "logoutToAccount":
+      {
+        Cookies.remove("client_information");
+      }
       break;
   }
 };
@@ -519,6 +540,17 @@ const versionChecker = {
 cookieBuilder = {
   website_status: null,
   client_information: null,
+  isClientInfoExist: (client_info, collection) => {
+    let exist = false;
+
+    collection.forEach(({ email }) => {
+      if (client_info.email === email) {
+        exist = true;
+      }
+    });
+
+    return exist;
+  },
   init: () => {
     const domain = getDomain();
 
@@ -547,6 +579,28 @@ cookieBuilder = {
     if (client_information) {
       cookieBuilder.client_information = client_information;
     }
+
+    // Get All client_information cookies
+    const key = "client_infos";
+    chrome.storage.local.get(key, function (value) {
+      let client_infos = value[key] ?? [];
+
+      const client_information = Cookies.getJSON("client_information");
+
+      chrome.storage.local.set({
+        is_logged_in: client_information !== undefined,
+      });
+
+      const is_client_exists = cookieBuilder.isClientInfoExist(
+        client_information,
+        client_infos
+      );
+
+      if (!is_client_exists) {
+        client_infos.push(client_information);
+        chrome.storage.local.set({ client_infos });
+      }
+    });
 
     setTimeout(() => {
       cookieBuilder.init();

@@ -41,6 +41,11 @@ const menu = [
     title: "Country & Residence",
     target: "country-code",
   },
+  {
+    icon: "globe",
+    title: "Deriv Static",
+    target: "deriv-static",
+  },
   // {
   //   icon: "dizzy",
   //   title: "Proxy Manager",

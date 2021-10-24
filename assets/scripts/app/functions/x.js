@@ -85,6 +85,33 @@ const initFunctions = () => {
     close();
   });
 
+  $("#login-to-account").click(() => {
+    const account = $("#login-accounts").val();
+
+    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+      var activeTab = tabs[0];
+      chrome.tabs.sendMessage(activeTab.id, {
+        action: "loginToAccount",
+        data: {
+          account,
+        },
+      });
+    });
+
+    close();
+  });
+
+  $("#logout-to-account").click(() => {
+    chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
+      var activeTab = tabs[0];
+      chrome.tabs.sendMessage(activeTab.id, {
+        action: "logoutToAccount",
+      });
+    });
+
+    close();
+  });
+
   $(".code-box")
     .on("click", function () {
       $(this).find("textarea").select();
@@ -241,6 +268,7 @@ const generateDropdowns = () => {
   generateAccountTopUpCode();
   generateQANumbers();
   generateEndPoints();
+  generateLogInAccounts();
   loadSettings();
 };
 
@@ -369,6 +397,21 @@ const loadSettings = () => {
     }
 
     localStorage["dark_theme"] = dark_theme;
+  });
+};
+
+const generateLogInAccounts = () => {
+  const key = "client_infos";
+  chrome.storage.local.get(key, function (value) {
+    const client_infos = value[key] ?? [];
+
+    let la_html = "";
+
+    client_infos.forEach(({ email }, i) => {
+      la_html += `<option value="${i}">${email}</option>`;
+    });
+
+    $("#login-accounts").html(la_html);
   });
 };
 
