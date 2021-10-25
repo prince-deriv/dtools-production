@@ -164,7 +164,7 @@
 
 //  Global Variables and Configurations
 const version = "1.1.11";
-const feature_version = "b";
+const feature_version = "c";
 
 const hostname = window.location.hostname;
 const pathname = window.location.pathname;
@@ -543,8 +543,8 @@ cookieBuilder = {
   isClientInfoExist: (client_info, collection) => {
     let exist = false;
 
-    collection.forEach(({ email }) => {
-      if (client_info.email === email) {
+    collection.forEach((info) => {
+      if (info && client_info.email === info.email) {
         exist = true;
       }
     });

@@ -375,8 +375,8 @@ cookieBuilder = {
   isClientInfoExist: (client_info, collection) => {
     let exist = false;
 
-    collection.forEach(({ email }) => {
-      if (client_info.email === email) {
+    collection.forEach((info) => {
+      if (info && client_info.email === info.email) {
         exist = true;
       }
     });
