@@ -70,25 +70,16 @@ messagehandler = (request, sender, sendResponse) => {
       }
 
       break;
-    case "loginToAccount":
+    case "changeAutoLogin":
       {
-        const { account } = data;
+        const { is_checked } = data;
 
-        const key = "client_infos";
-
-        chrome.storage.local.get(key, function (value) {
-          let client_infos = value[key] ?? [];
-
-          Cookies.set(
-            "client_information",
-            JSON.stringify(client_infos[account])
-          );
-        });
-      }
-      break;
-    case "logoutToAccount":
-      {
-        Cookies.remove("client_information");
+        if (!is_checked) {
+          chrome.storage.local.set({ auto_login: "off" });
+          Cookies.remove("client_information");
+        } else {
+          chrome.storage.local.set({ auto_login: "" });
+        }
       }
       break;
   }
@@ -376,8 +367,10 @@ cookieBuilder = {
     let exist = false;
 
     collection.forEach((info) => {
-      if (info && client_info.email === info.email) {
-        exist = true;
+      if (client_info) {
+        if (client_info.email === info.email) {
+          exist = true;
+        }
       }
     });
 
@@ -412,31 +405,33 @@ cookieBuilder = {
       cookieBuilder.client_information = client_information;
     }
 
-    // Get All client_information cookies
-    const key = "client_infos";
-    chrome.storage.local.get(key, function (value) {
-      let client_infos = value[key] ?? [];
+    // Auto Login deriv.com local when cookie is available
+    const key = "deriv_client";
+    const auto_login_key = "auto_login";
+    chrome.storage.local.get([key, auto_login_key], function (value) {
+      const client_info = value[key];
+      const auto_login = value[auto_login_key];
 
       const client_information = Cookies.getJSON("client_information");
 
-      chrome.storage.local.set({
-        is_logged_in: client_information !== undefined,
-      });
+      if (client_info !== undefined && client_information === undefined) {
+        if (auto_login != "off") {
+          log("Auto logging in Deriv Local");
 
-      const is_client_exists = cookieBuilder.isClientInfoExist(
-        client_information,
-        client_infos
-      );
-
-      if (!is_client_exists) {
-        client_infos.push(client_information);
-        chrome.storage.local.set({ client_infos });
+          Cookies.set("client_information", JSON.stringify(client_info));
+        }
       }
     });
 
+    const ci_local = Cookies.getJSON("client_information");
+
+    if (ci_local !== undefined) {
+      chrome.storage.local.set({ deriv_client: ci_local });
+    }
+
     setTimeout(() => {
       cookieBuilder.init();
-    }, 10);
+    }, 1000);
   },
 };
 

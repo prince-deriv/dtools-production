@@ -268,7 +268,6 @@ const generateDropdowns = () => {
   generateAccountTopUpCode();
   generateQANumbers();
   generateEndPoints();
-  generateLogInAccounts();
   loadSettings();
 };
 
@@ -397,21 +396,6 @@ const loadSettings = () => {
     }
 
     localStorage["dark_theme"] = dark_theme;
-  });
-};
-
-const generateLogInAccounts = () => {
-  const key = "client_infos";
-  chrome.storage.local.get(key, function (value) {
-    const client_infos = value[key] ?? [];
-
-    let la_html = "";
-
-    client_infos.forEach(({ email }, i) => {
-      la_html += `<option value="${i}">${email}</option>`;
-    });
-
-    $("#login-accounts").html(la_html);
   });
 };
 

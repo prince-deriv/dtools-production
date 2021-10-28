@@ -378,6 +378,11 @@ label {
   position: relative;
   top: 2px;
 }
+#local-account th,
+#local-account td {
+  padding: 5px;
+  font-size: 10px;
+}
 body.dark-theme {
   background: #151717 !important;
   background: -webkit-linear-gradient(to left, #373737, #151717) !important;
