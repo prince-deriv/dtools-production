@@ -1,8 +1,14 @@
 const changelog = [
   {
+    version: "1.1.12",
+    date: "November 8 2021",
+    added: ["Webtrader in App ID Generator"],
+    description: "Ability to create app id for webtrader in binary",
+  },
+  {
     version: "1.1.11",
     date: "October 24 2021",
-    added: ["Added Deriv Static controls"],
+    added: ["Deriv Static controls"],
     description: "Ability to login to Deriv Static in local environment",
   },
   {
