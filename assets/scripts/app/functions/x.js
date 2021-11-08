@@ -138,15 +138,18 @@ const initFunctions = () => {
 
     const app_id_deriv = $("#app-id-generator #app-id-deriv");
     const app_id_binary = $("#app-id-generator #app-id-binary");
+    const app_id_webtrader = $("#app-id-generator #app-id-webtrader");
 
     const deriv_query = `insert into oauth.apps (name, binary_user_id, active, redirect_uri, scopes, verification_uri) values ('${key}', 1, true, '${link}', '{read,admin,trade,payments}', '${link}/redirect');`;
     const binary_query = `insert into oauth.apps (name, binary_user_id, active, redirect_uri, scopes, verification_uri) values ('${key}', 1, true, '${link}/en/logged_inws.html', '{read,admin,trade,payments}', '${link}/en/redirect.html');`;
+    const webtrader_query = `insert into oauth.apps (name, binary_user_id, active, redirect_uri, scopes, verification_uri) values ('${key}', 1, true, '${link}', '{read,admin,trade,payments}', '${link}');`;
 
     $("#aig-p1").hide();
     $("#aig-p2").show();
 
     app_id_deriv.val(buildAppIdQuery(deriv_query, key));
     app_id_binary.val(buildAppIdQuery(binary_query, key));
+    app_id_webtrader.val(buildAppIdQuery(webtrader_query, key));
   });
 
   $("#generate-id-again").click(function () {

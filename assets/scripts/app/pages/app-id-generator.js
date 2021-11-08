@@ -28,6 +28,11 @@ const page_app_id_generator = `
             <div class="code-box">
                 <textarea class="form-control code big" id="app-id-binary" readonly></textarea>
             </div>
+
+            <label for="link">APP ID (Webtrader Binary)</label>
+            <div class="code-box">
+                <textarea class="form-control code big" id="app-id-webtrader" readonly></textarea>
+            </div>
         </div>
 
         <div class="footer-btn">
