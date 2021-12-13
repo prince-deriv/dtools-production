@@ -14,6 +14,10 @@ const page_market_controller = `
 sudo service binary_rpc_redis_general restart; sudo service binary_websocket_api restart; sudo service binary_pricer_daemon restart; sudo service binary_starman_bom-backoffice restart
             </textarea>
         </div>
+        <label>Clean Redis (Caching issue)</label>
+        <div class="code-box">
+            <textarea class="form-control code big" readonly>redis-cli -p 6360 keys '*trading_time*' | xargs redis-cli -p 6359 -a $(sudo cat /etc/rmg/redis-replicated.yml | grep -oP  -m 1  '((?<=password:).*)') del</textarea>
+        </div>
     </div>
 </div>
 `;
