@@ -164,17 +164,18 @@
 
 //  Global Variables and Configurations
 const version = "1.1.12";
-const feature_version = "a";
+const feature_version = "b";
 
 const hostname = window.location.hostname;
 const pathname = window.location.pathname;
 
 const log = (m) => {
-  console.log(
-    `%c DTools: %c ${m} `,
-    "color: #ff444f;font-weight:bold",
-    "color:white"
-  );
+  return false; // Turn Off Consoles
+  // console.log(
+  //   `%c DTools: %c ${m} `,
+  //   "color: #ff444f;font-weight:bold",
+  //   "color:white"
+  // );
 };
 
 messagehandler = (request, sender, sendResponse) => {
