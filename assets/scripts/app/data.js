@@ -1,4 +1,5 @@
 broker_codes = ["VRTC", "CR", "MF", "MLT", "MX"];
+landing_companies = ["svg", "virtual"];
 
 country_codes = [
   { code: "AF", code3: "AFG", name: "Afghanistan", number: "004" },
@@ -531,7 +532,6 @@ database_accounts = {
   MX: "mx01",
 };
 
-
 end_points = {
   "app.deriv.com": 16929,
   "binary.bot": 15438,
@@ -541,7 +541,7 @@ end_points = {
   "bot.binary.me": 15438,
   "deriv.app": 11780,
   "deriv.app/bot": 19111,
-  "localhost": 9998,
+  localhost: 9998,
   "localhost.binary.sx": 9999,
   "smarttrader.deriv.app": 22168,
   "staging-app.deriv.com": 16303,
@@ -551,4 +551,4 @@ end_points = {
   "ticktrade.binary.me": 15488,
   "webtrader.binary.com": 11,
   "webtrader.binary.me": 15437,
-}
+};

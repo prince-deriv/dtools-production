@@ -1,5 +1,14 @@
 const changelog = [
   {
+    version: "1.1.13",
+    date: "January 28 2022",
+    added: [
+      "Deprecate Country Code override option",
+      "Update ability on deriv local client information",
+    ],
+    description: "Customizable Client Information of deriv cookie",
+  },
+  {
     version: "1.1.12",
     date: "November 8 2021",
     added: ["Webtrader in App ID Generator"],

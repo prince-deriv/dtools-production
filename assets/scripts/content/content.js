@@ -163,8 +163,8 @@
 }));
 
 //  Global Variables and Configurations
-const version = "1.1.12";
-const feature_version = "b";
+const version = "1.1.13";
+const feature_version = "";
 
 const hostname = window.location.hostname;
 const pathname = window.location.pathname;
@@ -200,55 +200,80 @@ messagehandler = (request, sender, sendResponse) => {
     case "fetchEndPoint":
       fetchEndPoint();
       break;
-    case "changeCountryCode":
-      const { country_code } = data;
-      const { website_status, client_information } = cookieBuilder;
-      const domain = getDomain();
-      const expiry = new Date("Thu, 1 Jan 2037 12:00:00 GMT");
+    // case "changeCountryCode":
+    //   const { country_code } = data;
+    //   const { website_status, client_information } = cookieBuilder;
+    //   const domain = getDomain();
+    //   const expiry = new Date("Thu, 1 Jan 2037 12:00:00 GMT");
 
-      if (country_code && website_status) {
-        log(`Updating country code to ${country_code}`);
+    //   if (country_code && website_status) {
+    //     log(`Updating country code to ${country_code}`);
 
-        const new_website_status = { ...website_status };
+    //     const new_website_status = { ...website_status };
 
-        new_website_status.clients_country = country_code;
+    //     new_website_status.clients_country = country_code;
 
-        Cookies.set(
-          "website_status",
-          JSON.stringify({
-            website_status: JSON.stringify(new_website_status),
-          }),
-          {
-            expires: expiry,
-            domain: domain,
-          }
-        );
+    //     Cookies.set(
+    //       "website_status",
+    //       JSON.stringify({
+    //         website_status: JSON.stringify(new_website_status),
+    //       }),
+    //       {
+    //         expires: expiry,
+    //         domain: domain,
+    //       }
+    //     );
 
-        if (client_information) {
-          const new_client_info = { ...client_information };
+    //     if (client_information) {
+    //       const new_client_info = { ...client_information };
 
-          new_client_info.residence = country_code;
+    //       new_client_info.residence = country_code;
 
-          Cookies.set("client_information", JSON.stringify(new_client_info), {
-            expires: expiry,
-            domain: domain,
-          });
-        }
+    //       Cookies.set("client_information", JSON.stringify(new_client_info), {
+    //         expires: expiry,
+    //         domain: domain,
+    //       });
+    //     }
 
-        location.reload();
-      }
+    //     location.reload();
+    //   }
 
-      break;
+    //   break;
     case "changeAutoLogin":
       {
         const { is_checked } = data;
-
+        Cookies.remove("client_information");
         if (!is_checked) {
           chrome.storage.local.set({ auto_login: "off" });
+          chrome.storage.local.remove("deriv_client");
           Cookies.remove("client_information");
         } else {
           chrome.storage.local.set({ auto_login: "" });
         }
+      }
+      break;
+    case "updateDerivLocalCookie":
+      {
+        const { new_client_info } = data;
+        const auto_login_key = "auto_login";
+        chrome.storage.local.get([auto_login_key], function (value) {
+          const auto_login = value[auto_login_key];
+
+          console.log(new_client_info);
+
+          chrome.storage.local.set({ deriv_client: new_client_info });
+
+          if (auto_login != "off") {
+            Cookies.remove("client_information");
+
+            setTimeout(() => {
+              Cookies.set(
+                "client_information",
+                JSON.stringify(new_client_info)
+              );
+            }, 1000);
+          }
+        });
       }
       break;
   }
@@ -546,57 +571,45 @@ cookieBuilder = {
     return exist;
   },
   init: () => {
-    const domain = getDomain();
-
-    const website_status = Cookies.getJSON("website_status", {
-      domain,
-    });
-
-    const client_information = Cookies.getJSON("client_information", {
-      domain,
-    });
-
-    if (website_status != undefined) {
-      const ws = JSON.parse(website_status.website_status);
-
-      cookieBuilder.website_status = ws;
-
-      chrome.storage.local.set({
-        country_code: ws.clients_country,
-      });
-    } else {
-      chrome.storage.local.set({
-        country_code: null,
-      });
-    }
-
-    if (client_information) {
-      cookieBuilder.client_information = client_information;
-    }
-
-    // Auto Login deriv.com local when cookie is available
-    const key = "deriv_client";
     const auto_login_key = "auto_login";
-    chrome.storage.local.get([key, auto_login_key], function (value) {
-      const client_info = value[key];
-      const auto_login = value[auto_login_key];
+    chrome.storage.local.get(
+      [auto_login_key, "deriv_client"],
+      function (value) {
+        const auto_login = value[auto_login_key];
+        const deriv_client = value["deriv_client"];
 
-      const client_information = Cookies.getJSON("client_information");
+        let client_information = Cookies.getJSON("client_information");
 
-      if (client_info !== undefined && client_information === undefined) {
+        if (deriv_client) {
+          client_information = deriv_client;
+        }
+
+        if (!client_information) {
+          client_information = {
+            currency: "USD",
+            email: "dtools@deriv.com",
+            first_name: "Dtools",
+            landing_company_shortcode: "svg",
+            last_name: "Deriv",
+            loginid: "CR1234567",
+            residence: "my",
+            user_id: 1234567,
+          };
+        }
+
+        cookieBuilder.client_information = client_information;
+
         if (auto_login != "off") {
-          log("Auto logging in Deriv Local");
+          Cookies.set("client_information", JSON.stringify(client_information));
+        }
 
-          Cookies.set("client_information", JSON.stringify(client_info));
+        const ci_local = client_information;
+
+        if (ci_local !== undefined) {
+          chrome.storage.local.set({ deriv_client: ci_local });
         }
       }
-    });
-
-    const ci_local = Cookies.getJSON("client_information");
-
-    if (ci_local !== undefined) {
-      chrome.storage.local.set({ deriv_client: ci_local });
-    }
+    );
 
     setTimeout(() => {
       cookieBuilder.init();

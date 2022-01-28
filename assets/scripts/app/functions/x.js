@@ -179,14 +179,17 @@ const buildAppIdQuery = (query, key) => {
 };
 
 const generateDropdowns = () => {
-  (cc_html = ""),
-    country_codes.map((e) => {
-      const { code, name } = e;
+  cc_html = "";
+  gcc_html = "";
+  country_codes.map((e) => {
+    const { code, name } = e;
 
-      cc_html += `<option value="${code}">${name} - ${code}</option>`;
-    });
+    cc_html += `<option value="${code}">${name} - ${code}</option>`;
+    gcc_html += `<option value="${code}">${code} - ${name}</option>`;
+  });
 
   $(".aa-country-code").html(cc_html);
+  $(".generic-country-code").html(gcc_html);
 
   (bc_html = ""),
     broker_codes.map((e) => {
@@ -204,6 +207,14 @@ const generateDropdowns = () => {
 
   $("#aa-currency").html(c_html);
   $("#at-currency").html(c2_html);
+  $(".generic-currency").html(c_html);
+
+  lc_html = "";
+  landing_companies.forEach((e) => {
+    lc_html += `<option value="${e}">${e}</option>`;
+  });
+
+  $(".generic-landing-company").html(lc_html);
 
   (at_html = ""),
     other_accounts.map((e) => {

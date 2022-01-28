@@ -383,6 +383,10 @@ label {
   padding: 5px;
   font-size: 10px;
 }
+#local-account th select,
+#local-account td select {
+  max-width: 120px;
+}
 body.dark-theme {
   background: #151717 !important;
   background: -webkit-linear-gradient(to left, #373737, #151717) !important;
