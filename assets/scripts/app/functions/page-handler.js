@@ -102,7 +102,11 @@ const pageHandler = (e) => {
               $(`#dl-${k}`).on("keyup keydown click change", () => {
                 let new_client_info = client_info;
                 Object.keys(client_info).forEach((k) => {
-                  const new_value = $(`#dl-${k}`).val();
+                  let new_value = $(`#dl-${k}`).val();
+
+                  if (k === "residence") {
+                    new_value = new_value.toLowerCase();
+                  }
 
                   new_client_info[k] = new_value;
                 });
