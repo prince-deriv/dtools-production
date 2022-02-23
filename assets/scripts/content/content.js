@@ -164,7 +164,7 @@
 
 //  Global Variables and Configurations
 const version = "1.1.13";
-const feature_version = "a";
+const feature_version = "b";
 
 const hostname = window.location.hostname;
 const pathname = window.location.pathname;
@@ -189,6 +189,14 @@ messagehandler = (request, sender, sendResponse) => {
       localStorage.setItem("config.server_url", server_url);
       localStorage.setItem("is_dashboard", is_dashboard);
       localStorage.setItem("debug_service_worker", debug_service_worker);
+
+      chrome.storage.local.set({
+        app_id,
+        server_url,
+        is_dashboard,
+        debug_service_worker,
+      });
+
       location.reload();
       break;
     case "resetEndPoint":
@@ -440,12 +448,12 @@ const fetchEndPoint = () => {
   const account_id = localStorage["active_loginid"];
   const client_details = JSON.parse(localStorage["client.accounts"]);
 
-  chrome.storage.local.set({ app_id: getAppId() });
-  chrome.storage.local.set({ server_url: getSocketURL() });
-  chrome.storage.local.set({ account_id });
-  chrome.storage.local.set({ client_details: client_details[account_id] });
-  chrome.storage.local.set({ is_dashboard: localStorage["is_dashboard"] });
   chrome.storage.local.set({
+    app_id: getAppId(),
+    server_url: getSocketURL(),
+    account_id,
+    client_details: client_details[account_id],
+    is_dashboard: localStorage["is_dashboard"],
     debug_service_worker: localStorage["debug_service_worker"],
   });
 };
