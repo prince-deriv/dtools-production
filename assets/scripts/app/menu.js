@@ -46,6 +46,11 @@ const menu = [
     title: "Deriv Static",
     target: "deriv-static",
   },
+  {
+    icon: "copy",
+    title: "File Merger",
+    target: "git-file-merger",
+  },
   // {
   //   icon: "dizzy",
   //   title: "Proxy Manager",

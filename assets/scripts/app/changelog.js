@@ -1,5 +1,11 @@
 const changelog = [
   {
+    version: "1.1.14",
+    date: "March 10 2022",
+    added: ["Added file merger"],
+    description: "File merger allows users to merge specific files from a PR",
+  },
+  {
     version: "1.1.13",
     date: "January 28 2022",
     added: [

@@ -146,6 +146,31 @@ const pageHandler = (e) => {
         );
       }
       break;
+    case "git-file-merger":
+      {
+        const fileMergerGenerateCode = () => {
+          const now = new Date();
+          const epoch = Math.round(now.getTime() / 1000);
+          const files = $("#fm-file-names").val().split(",");
+          const pr_id = $("#fm-pr-id").val();
+          const branch_name = `file-merger-${epoch}`;
+
+          let patch = ``;
+
+          files.forEach((f) => {
+            patch += `git checkout --patch ${branch_name} ${f};`;
+          });
+
+          const final_code = `git fetch upstream pull/${pr_id}/head:${branch_name}; ${patch} `;
+
+          $("#git-file-merger-code").val(final_code);
+        };
+
+        $(".fm").on("change blur focus click", () => {
+          fileMergerGenerateCode();
+        });
+      }
+      break;
     case "mail-manager":
       {
         mailManager.load();

@@ -9,6 +9,7 @@ const menu_pages = [
   page_settings,
   page_topup,
   page_deriv_static,
+  page_git_file_merger,
 ];
 
 const popup_pages = [];
