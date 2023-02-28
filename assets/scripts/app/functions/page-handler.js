@@ -176,5 +176,20 @@ const pageHandler = (e) => {
         mailManager.load();
       }
       break;
+    case "release-manager":
+      {
+        const date_object = new Date();
+        const month = date_object.getUTCMonth() + 1; //months from 1-12
+        const day = date_object.getUTCDate();
+        const year = date_object.getUTCFullYear();
+
+        const date = `${year}${month}${day}`;
+        const version = `V${date}`;
+        const tag_version = `production_${version}`;
+
+        $("#rm-version").val(version);
+        $("#rm-tag-version").val(tag_version);
+      }
+      break;
   }
 };

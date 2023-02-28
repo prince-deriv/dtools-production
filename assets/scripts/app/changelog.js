@@ -1,5 +1,11 @@
 const changelog = [
   {
+    version: "1.1.15",
+    date: "February 28 2023",
+    added: ["Release Version Generator"],
+    description: "Generate version tag based on current date",
+  },
+  {
     version: "1.1.14",
     date: "March 10 2022",
     added: ["Added file merger"],

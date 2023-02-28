@@ -163,7 +163,7 @@
 }));
 
 //  Global Variables and Configurations
-const version = "1.1.14";
+const version = "1.1.15";
 const feature_version = "";
 
 const hostname = window.location.hostname;

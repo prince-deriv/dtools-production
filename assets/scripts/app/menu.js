@@ -47,6 +47,11 @@ const menu = [
     target: "deriv-static",
   },
   {
+    icon: "road",
+    title: "Release Manager",
+    target: "release-manager",
+  },
+  {
     icon: "copy",
     title: "File Merger",
     target: "git-file-merger",
@@ -60,7 +65,7 @@ const menu = [
 
 const renderMenu = () => {
   let content = "";
-  menu.map((m) => {
+  menu.forEach((m) => {
     content += `<div class="box-item router-link" data-target="${m.target}">
             <i class="fas fa-${m.icon} icon"></i>
             <span class="text">${m.title}</span>
