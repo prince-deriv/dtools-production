@@ -13,6 +13,16 @@ ${page_back_button}
     />
   </div>
   <div class="form-group">
+  <label for="">Password</label>
+  <input
+    type="email"
+    class="form-control aa-input"
+    id="aa-password"
+    placeholder=""
+    value="Abcd1234"
+  />
+</div>
+  <div class="form-group">
     <label for="">Broker Code</label>
     <select
       type="text"
@@ -49,7 +59,7 @@ ${page_back_button}
   </div>
 
   <div class="form-group">
-    <label for="link">Code</label>
+    <label for="link">Code (Old QA)</label>
     <div class="code-box">
       <textarea
         class="form-control code mid"
@@ -58,6 +68,17 @@ ${page_back_button}
       ></textarea>
     </div>
   </div>
+
+  <div class="form-group">
+  <label for="link">Code (New QA)</label>
+  <div class="code-box">
+    <textarea
+      class="form-control code mid"
+      id="add-account-new-code"
+      readonly
+    ></textarea>
+  </div>
+</div>
 
   <div class="form-group">
     <label for="link">Generate Perl File</label>

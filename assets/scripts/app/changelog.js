@@ -1,5 +1,11 @@
 const changelog = [
   {
+    version: "1.1.15b",
+    date: "April 14 2023",
+    added: ["New Add Account Parameter"],
+    description: "Password parameter is added",
+  },
+  {
     version: "1.1.15",
     date: "February 28 2023",
     added: ["Release Version Generator"],

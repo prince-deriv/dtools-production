@@ -289,6 +289,7 @@ const generateAddAccountCode = () => {
   const country_code = $("#aa-country-code").val();
 
   const email = $("#aa-email").val();
+  const password = $("#aa-password").val();
   const broker_code = $("#aa-broker-code").val();
   const account_type = $("#aa-account-type").val();
   const currency = $("#aa-currency").val();
@@ -297,7 +298,12 @@ const generateAddAccountCode = () => {
     country_code && country_code.toLowerCase()
   }  ${currency} ${account_type} `;
 
+  const new_code = `perl create_account.pl ${email} ${password} ${broker_code}  ${
+    country_code && country_code.toLowerCase()
+  }  ${currency} ${account_type} `;
+
   $("#add-account-code").val(code);
+  $("#add-account-new-code").val(new_code);
 
   // Hide Error Validation code
   const database_code = database_accounts[broker_code];
