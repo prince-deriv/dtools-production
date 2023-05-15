@@ -191,5 +191,23 @@ const pageHandler = (e) => {
         $("#rm-tag-version").val(tag_version);
       }
       break;
+    case "quick-login":
+      {
+        const quick_login_url = "quick-login-url";
+        $("#quick-login-btn").click(() => {
+          const url = $("#ql-url").val();
+
+          popupCenter({ url, title: "quick-login", w: 500, h: 700 });
+
+          chrome.storage.local.set({ [quick_login_url]: url });
+        });
+
+        chrome.storage.local.get([quick_login_url], function (value) {
+          const default_url = value[quick_login_url];
+
+          $("#ql-url").val(default_url);
+        });
+      }
+      break;
   }
 };

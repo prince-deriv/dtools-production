@@ -457,6 +457,57 @@ cookieBuilder = {
   },
 };
 
+// Quick login checker
+const quick_login_url = "quick-login-url";
+chrome.storage.local.get([quick_login_url], function (value) {
+  let quick_login_triggered = false;
+  const url = value[quick_login_url];
+
+  setInterval(() => {
+    // Validate quick login popup
+
+    if (window.name === "quick-login") {
+      // Auto click login button
+      window.resizeTo(500, 700);
+
+      if (!quick_login_triggered && window.location.href === url) {
+        const button = document.getElementById("dt_login_button");
+        if (button) {
+          button.click();
+          quick_login_triggered = true;
+        }
+      }
+      // Fetch Token in localstorage
+      const client_info = localStorage["client.accounts"];
+      if (client_info) {
+        const parsed_info = JSON.parse(client_info);
+
+        let x = 1;
+        let token_string = "";
+
+        Object.keys(parsed_info).forEach((account) => {
+          const info = parsed_info[account];
+          const delimeter = x === 1 ? "" : "&";
+
+          token_string += `${delimeter}acct${x}=${account}&token${x}=${info.token}&cur${x}=${info.currency}`;
+          x++;
+        });
+
+        // redirect to the target url and apply the token
+        if (token_string !== "") {
+          if (url.includes(window.location.host)) {
+            window.open(url, "_blank");
+            window.close();
+            return false;
+          }
+
+          window.location = `${url}?${token_string}`;
+        }
+      }
+    }
+  }, 100);
+});
+
 profileBuilder();
 cookieBuilder.init();
 versionChecker.run();

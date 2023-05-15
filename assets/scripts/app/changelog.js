@@ -1,9 +1,15 @@
 const changelog = [
   {
+    version: "1.1.16",
+    date: "May 15 2023",
+    added: ["Quick login feature"],
+    description: "Added ability to login on test links without creating App ID",
+  },
+  {
     version: "1.1.15b",
     date: "April 14 2023",
     added: ["New Add Account Parameter"],
-    description: "Password parameter is added",
+    description: "Password parameter is added`",
   },
   {
     version: "1.1.15",

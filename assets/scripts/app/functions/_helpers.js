@@ -36,3 +36,22 @@ const selectMenu = (e) => {
     $(".top-icon-box").show();
   }
 };
+
+const popupCenter = ({ url, title, w, h }) => {
+  const left = (screen.width - w) / 2;
+  const top = (screen.height - h) / 2;
+
+  const newWindow = window.open(
+    url,
+    title,
+    `
+    scrollbars=yes,
+    width=${w}, 
+    height=${h}, 
+    top=${top}, 
+    left=${left}
+    `
+  );
+
+  if (window.focus) newWindow.focus();
+};

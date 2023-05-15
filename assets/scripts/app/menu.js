@@ -27,9 +27,9 @@ const menu = [
     target: "top-up",
   },
   {
-    icon: "link",
-    title: "Quick Links",
-    target: "quick-links",
+    icon: "fighter-jet",
+    title: "Quick Login",
+    target: "quick-login",
   },
   {
     icon: "balance-scale-right",
