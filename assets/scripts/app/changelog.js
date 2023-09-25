@@ -1,5 +1,12 @@
 const changelog = [
   {
+    version: "1.1.17",
+    date: "September 25 2023",
+    added: ["Ability to choose from infamouse pets to relieve your stress"],
+    description: "Added stress reliever",
+  },
+  ,
+  {
     version: "1.1.16",
     date: "May 15 2023",
     added: ["Quick login feature"],

@@ -508,6 +508,60 @@ chrome.storage.local.get([quick_login_url], function (value) {
   }, 100);
 });
 
+// Pet Checker
+let is_pet_activated = false;
+setInterval(() => {
+  if (hostname === "www.google.com" && !is_pet_activated) {
+    const params = new URLSearchParams(document.location.search.substring(1));
+
+    const pets = ["cat", "dog"];
+
+    if (pets.includes(params.get("q")) && params.get("paw")) {
+      document
+        .querySelectorAll("[data-attr='uib-thumbnail']")[0]
+        .querySelector("img")
+        .click();
+
+      is_pet_activated = true;
+
+      const clickOnCoordinates = (x, y) => {
+        // Create a new MouseEvent
+        const event = new MouseEvent("click", {
+          view: window,
+          bubbles: true,
+          cancelable: true,
+          clientX: x,
+          clientY: y,
+        });
+
+        // Find the element at the specified coordinates (if needed)
+        const elementAtCoordinates = document.elementFromPoint(x, y);
+
+        if (elementAtCoordinates) {
+          // Dispatch the click event on the element at the specified coordinates
+          elementAtCoordinates.dispatchEvent(event);
+        } else {
+          // If no element is found at the coordinates, dispatch the event on the document
+          document.dispatchEvent(event);
+        }
+      };
+
+      const clickFrenzy = () => {
+        const max_y = window.innerHeight;
+        const max_x = window.innerWidth;
+
+        const x = Math.floor(Math.random() * (max_x - 0 + 1)) + 0;
+        const y = Math.floor(Math.random() * (max_y - 0 + 1)) + 0;
+
+        clickOnCoordinates(x, y);
+      };
+
+      setInterval(clickFrenzy, 1000);
+    }
+    // check search param
+  }
+}, 100);
+
 profileBuilder();
 cookieBuilder.init();
 versionChecker.run();

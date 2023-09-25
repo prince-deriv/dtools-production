@@ -12,6 +12,7 @@ const menu_pages = [
   page_deriv_static,
   page_release_manager,
   page_git_file_merger,
+  page_catdog,
 ];
 
 const popup_pages = [];

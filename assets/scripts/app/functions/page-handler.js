@@ -209,5 +209,18 @@ const pageHandler = (e) => {
         });
       }
       break;
+    case "cat-dog":
+      {
+        // Pet controls
+        $(".pet-item").click(function (i) {
+          const pet_type = $(i.currentTarget).data("pet");
+
+          window.open(
+            `https://www.google.com/search?q=${pet_type}&paw=1`,
+            "catdog"
+          );
+        });
+      }
+      break;
   }
 };

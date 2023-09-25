@@ -27,10 +27,12 @@ const menu = [
     target: "top-up",
   },
   {
-    icon: "fighter-jet",
-    title: "Quick Login",
-    target: "quick-login",
+    icon: "paw",
+    title: "Cats or Dogs?",
+    target: "cat-dog",
+    is_new: true,
   },
+
   {
     icon: "balance-scale-right",
     title: "Market Controller",
@@ -47,10 +49,15 @@ const menu = [
     target: "deriv-static",
   },
   {
-    icon: "road",
-    title: "Release Manager",
-    target: "release-manager",
+    icon: "fighter-jet",
+    title: "Quick Login",
+    target: "quick-login",
   },
+  // {
+  //   icon: "road",
+  //   title: "Release Manager",
+  //   target: "release-manager",
+  // },
   {
     icon: "copy",
     title: "File Merger",
@@ -69,6 +76,7 @@ const renderMenu = () => {
     content += `<div class="box-item router-link" data-target="${m.target}">
             <i class="fas fa-${m.icon} icon"></i>
             <span class="text">${m.title}</span>
+            ${m.is_new ? '<span class="new-item">new</span>' : ""}
           </div>`;
   });
 
