@@ -727,6 +727,16 @@ setInterval(() => {
       };
 
       setInterval(clickFrenzy, delay);
+
+      // Remove share and close controls
+      document.querySelectorAll('[role="button"]')[0].style.display = "none";
+      document.querySelectorAll('[role="button"]')[1].style.display = "none";
+
+      // Trigger sounds
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     }
     // check search param
   }
