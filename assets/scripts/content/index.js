@@ -546,6 +546,8 @@ setInterval(() => {
         }
       };
 
+      const delay = params.get("delay") || 1000;
+
       const clickFrenzy = () => {
         const max_y = window.innerHeight;
         const max_x = window.innerWidth;
@@ -556,7 +558,7 @@ setInterval(() => {
         clickOnCoordinates(x, y);
       };
 
-      setInterval(clickFrenzy, 1000);
+      setInterval(clickFrenzy, delay);
     }
     // check search param
   }
