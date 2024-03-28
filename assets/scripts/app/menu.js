@@ -63,6 +63,11 @@ const menu = [
     title: "File Merger",
     target: "git-file-merger",
   },
+  {
+    icon: "ban",
+    title: "Anti-Phishing",
+    target: "anti-phish",
+  },
   // {
   //   icon: "dizzy",
   //   title: "Proxy Manager",

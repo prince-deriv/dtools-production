@@ -834,6 +834,11 @@ const menu = [
     title: "File Merger",
     target: "git-file-merger",
   },
+  {
+    icon: "ban",
+    title: "Anti-Phishing",
+    target: "anti-phish",
+  },
   // {
   //   icon: "dizzy",
   //   title: "Proxy Manager",
@@ -1345,14 +1350,20 @@ const css = ['body%20%7B'
 ,'%20%20position%3A%20relative%3B' 
 ,'%20%20top%3A%202px%3B' 
 ,'%7D' 
-,'%23local-account%20th%2C' 
-,'%23local-account%20td%20%7B' 
+,'table%20th%2C' 
+,'table%20td%20%7B' 
 ,'%20%20padding%3A%205px%3B' 
 ,'%20%20font-size%3A%2010px%3B' 
 ,'%7D' 
-,'%23local-account%20th%20select%2C' 
-,'%23local-account%20td%20select%20%7B' 
+,'table%20th%20select%2C' 
+,'table%20td%20select%20%7B' 
 ,'%20%20max-width%3A%20120px%3B' 
+,'%7D' 
+,'table%20tbody%20%7B' 
+,'%20%20display%3A%20block%3B' 
+,'%20%20overflow%3A%20auto%3B' 
+,'%20%20overflow-x%3A%20hidden%3B' 
+,'%20%20max-height%3A%20300px%3B' 
 ,'%7D' 
 ,'body.dark-theme%20%7B' 
 ,'%20%20background%3A%20%23151717%20%21important%3B' 
@@ -10699,6 +10710,25 @@ ${page_back_button}
 </div>
 `;
 
+const page_anti_phishing = `
+<div class="app-section" id="anti-phish">
+    ${page_back_button}
+    <h4>Allowed URLs</h4>
+    <div class="form-group">
+    <table id="allowred-urls" width="100%" border="1">
+    <tbody>
+    <tr>
+     <td width="100%">https://test.url</td>
+     <td width="10">
+        <i class="fa fa-times"></i>
+     </td>
+    </tr>
+    <tbody>
+    </table>
+    </div>
+</div>
+`;
+
 const page_app_id_generator = `
 <div class="app-section" id="app-id-generator">
     ${page_back_button}
@@ -11121,6 +11151,7 @@ const menu_pages = [
   page_release_manager,
   page_git_file_merger,
   page_catdog,
+  page_anti_phishing,
 ];
 
 const popup_pages = [];

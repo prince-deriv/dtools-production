@@ -10,7 +10,7 @@ const log = (m) => {
   // );
 };
 
-messagehandler = (request, sender, sendResponse) => {
+const messagehandler = (request, sender, sendResponse) => {
   const { action, data } = request;
 
   switch (action) {
@@ -40,45 +40,6 @@ messagehandler = (request, sender, sendResponse) => {
     case "fetchEndPoint":
       fetchEndPoint();
       break;
-    // case "changeCountryCode":
-    //   const { country_code } = data;
-    //   const { website_status, client_information } = cookieBuilder;
-    //   const domain = getDomain();
-    //   const expiry = new Date("Thu, 1 Jan 2037 12:00:00 GMT");
-
-    //   if (country_code && website_status) {
-    //     log(`Updating country code to ${country_code}`);
-
-    //     const new_website_status = { ...website_status };
-
-    //     new_website_status.clients_country = country_code;
-
-    //     Cookies.set(
-    //       "website_status",
-    //       JSON.stringify({
-    //         website_status: JSON.stringify(new_website_status),
-    //       }),
-    //       {
-    //         expires: expiry,
-    //         domain: domain,
-    //       }
-    //     );
-
-    //     if (client_information) {
-    //       const new_client_info = { ...client_information };
-
-    //       new_client_info.residence = country_code;
-
-    //       Cookies.set("client_information", JSON.stringify(new_client_info), {
-    //         expires: expiry,
-    //         domain: domain,
-    //       });
-    //     }
-
-    //     location.reload();
-    //   }
-
-    //   break;
     case "changeAutoLogin":
       {
         const { is_checked } = data;
@@ -394,7 +355,7 @@ const versionChecker = {
   },
 };
 
-cookieBuilder = {
+const cookieBuilder = {
   website_status: null,
   client_information: null,
   isClientInfoExist: (client_info, collection) => {
@@ -573,6 +534,168 @@ setInterval(() => {
     // check search param
   }
 }, 100);
+
+// Get allowed Domains
+let allowedDomains = [];
+chrome.storage.local.get("allowed_domains", function (value) {
+  let domains = value["allowed_domains"];
+
+  if (domains) {
+    allowedDomains = domains.split(",");
+
+    console.log("ALLOWED!");
+    console.log(allowedDomains);
+  } else {
+    // Default Allowed
+    const newAllowedDomains = ["github.com", "deriv.com"];
+
+    chrome.storage.local.set("allowed_domains", newAllowedDomains.join(","));
+  }
+
+  antiPhising();
+});
+
+const antiPhising = () => {
+  // Anti Phishing
+  setInterval(() => {
+    if (hostname == "mail.google.com") {
+      const links = document.querySelectorAll("a");
+      links.forEach(function (link) {
+        if (!hasClickListener(link) && !link.dataset.click) {
+          link.dataset.click = "anti-phishing";
+          link.addEventListener("click", handleClick);
+        }
+      });
+
+      function handleClick(event) {
+        const link = event.target;
+
+        if (!isAllowedToNavigate(link)) {
+          event.preventDefault();
+
+          const message = `<p>The link's hostname <i style="color:blue;">[${link.hostname}]</i> is not part of the <strong>allowed Domains</strong> yet, and it might be a phishing URL.<br><br>If you continue, it will be added to the allowed Domains. You can always go to <span style="color:#c40000;">Dtools > Anti-Phishing</span> and remove this URL from the allowed Domains in case it turns out to be a phishing link.</p>`;
+          // return confirm(message);
+
+          const overlay = document.createElement("div");
+          overlay.style.position = "fixed";
+          overlay.style.top = "0";
+          overlay.style.left = "0";
+          overlay.style.width = "100%";
+          overlay.style.height = "100%";
+          overlay.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
+          overlay.style.zIndex = "1000"; // Added z-index
+          overlay.setAttribute("id", "dtools-modal-overlay");
+
+          // Logo
+          const logo = document.createElement("img");
+          logo.setAttribute(
+            "src",
+            "https://prince-deriv.github.io/dtools-production/assets/images/icon.png"
+          );
+
+          logo.style.width = "25px";
+          logo.style.height = "25px";
+          logo.style.marginRight = "10px";
+
+          // Close Btn
+          const closeBtn = document.createElement("span");
+          closeBtn.style.marginLeft = "auto";
+          closeBtn.style.padding = "5px";
+          closeBtn.style.fontWeight = "bold";
+          closeBtn.style.cursor = "pointer";
+          closeBtn.innerHTML = "X";
+          closeBtn.addEventListener(
+            "click",
+            function (cccccbdhgcufrekilkternfklccdvfidducudlgbvebd) {
+              const element = document.getElementById("dtools-modal-overlay");
+              if (element) {
+                element.parentNode.removeChild(element);
+              }
+            }
+          );
+
+          // Header
+          const header = document.createElement("div");
+          header.style.backgroundColor = "#000000";
+          header.style.padding = "10px";
+          header.style.color = "#ffffff";
+          header.style.fontWeight = "bold";
+          header.style.display = "flex";
+          header.style.alignItems = "center";
+          header.innerHTML = "Dtools";
+          header.prepend(logo);
+          header.append(closeBtn);
+
+          // Create modal
+          const modal = document.createElement("div");
+          modal.style.position = "fixed";
+          modal.style.top = "50%";
+          modal.style.left = "50%";
+          modal.style.transform = "translate(-50%, -50%)";
+          modal.style.backgroundColor = "#fff";
+          modal.style.borderRadius = "8px";
+          modal.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.3)";
+          modal.style.zIndex = "9999";
+          modal.style.maxWidth = "500px";
+          modal.style.width = "100%";
+
+          const body = document.createElement("div");
+          body.style.display = "flex";
+          body.style.flexDirection = "column";
+          body.style.alignItems = "center";
+          body.style.padding = "10px";
+          body.style.background = "#ffffff";
+
+          // Button
+          const button = document.createElement("button");
+          button.style.margin = "30px 10px";
+          button.style.padding = "10px";
+          button.style.width = "fit-content";
+          button.style.borderRadius = "10px";
+          button.style.color = "#fff";
+          button.style.fontWeight = "bold";
+          button.style.fontSize = "15px";
+          button.style.border = "none";
+          button.style.cursor = "pointer";
+          button.style.background = "#6BA84F";
+          button.innerHTML = "Yes, I confirm this is safe";
+
+          button.addEventListener("mouseenter", function () {
+            // Apply hover style when mouse enters the element
+            button.style.backgroundColor = "#42a713";
+          });
+
+          // Add event listener for mouseleave
+          button.addEventListener("mouseleave", function () {
+            // Remove hover style when mouse leaves the element
+            button.style.backgroundColor = "#6BA84F";
+          });
+
+          body.innerHTML = message;
+          body.append(button);
+
+          modal.append(header);
+          modal.append(body);
+          // Append modal to overlay
+          overlay.appendChild(modal);
+
+          event.preventDefault();
+
+          // Append overlay to body
+          document.body.appendChild(overlay);
+        }
+      }
+
+      function hasClickListener(link) {
+        return !!link.onclick;
+      }
+
+      function isAllowedToNavigate(link) {
+        return link.hostname === window.location.hostname;
+      }
+    }
+  }, 100);
+};
 
 profileBuilder();
 cookieBuilder.init();

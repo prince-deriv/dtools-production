@@ -13,6 +13,7 @@ const menu_pages = [
   page_release_manager,
   page_git_file_merger,
   page_catdog,
+  page_anti_phishing,
 ];
 
 const popup_pages = [];

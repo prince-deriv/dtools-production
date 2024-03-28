@@ -514,7 +514,7 @@ label {
   top: 2px;
 }
 
-#local-account {
+table {
   th,td {
     padding: 5px;
     font-size: 10px;
@@ -522,6 +522,13 @@ label {
     select {
       max-width: 120px;
     }
+  }
+
+  tbody {
+    display: block;
+    overflow: auto;
+    overflow-x: hidden;
+    max-height: 300px;
   }
 }
 
