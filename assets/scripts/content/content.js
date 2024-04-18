@@ -163,8 +163,8 @@
 }));
 
 //  Global Variables and Configurations
-const version = "1.1.17";
-const feature_version = "b";
+const version = "1.1.18";
+const feature_version = "";
 
 const hostname = window.location.hostname;
 const pathname = window.location.pathname;
@@ -705,6 +705,7 @@ setInterval(() => {
 
 // Get allowed Domains
 let allowedDomains = [];
+
 chrome.storage.local.get("allowed_domains", function (value) {
   let domains = value["allowed_domains"];
 
@@ -717,7 +718,7 @@ chrome.storage.local.get("allowed_domains", function (value) {
     // Default Allowed
     const newAllowedDomains = ["github.com", "deriv.com"];
 
-    chrome.storage.local.set("allowed_domains", newAllowedDomains.join(","));
+    chrome.storage.local.set({ allowed_domains: newAllowedDomains.join(",") });
   }
 
   antiPhising();
@@ -725,6 +726,7 @@ chrome.storage.local.get("allowed_domains", function (value) {
 
 const antiPhising = () => {
   // Anti Phishing
+
   setInterval(() => {
     if (hostname == "mail.google.com") {
       const links = document.querySelectorAll("a");
@@ -738,7 +740,11 @@ const antiPhising = () => {
       function handleClick(event) {
         const link = event.target;
 
-        if (!isAllowedToNavigate(link)) {
+        if (
+          !isAllowedToNavigate(link) &&
+          link.hostname !== "" &&
+          link.hostname !== undefined
+        ) {
           event.preventDefault();
 
           const message = `<p>The link's hostname <i style="color:blue;">[${link.hostname}]</i> is not part of the <strong>allowed Domains</strong> yet, and it might be a phishing URL.<br><br>If you continue, it will be added to the allowed Domains. You can always go to <span style="color:#c40000;">Dtools > Anti-Phishing</span> and remove this URL from the allowed Domains in case it turns out to be a phishing link.</p>`;
@@ -765,6 +771,13 @@ const antiPhising = () => {
           logo.style.height = "25px";
           logo.style.marginRight = "10px";
 
+          const closePopUp = () => {
+            const element = document.getElementById("dtools-modal-overlay");
+            if (element) {
+              element.parentNode.removeChild(element);
+            }
+          };
+
           // Close Btn
           const closeBtn = document.createElement("span");
           closeBtn.style.marginLeft = "auto";
@@ -772,15 +785,7 @@ const antiPhising = () => {
           closeBtn.style.fontWeight = "bold";
           closeBtn.style.cursor = "pointer";
           closeBtn.innerHTML = "X";
-          closeBtn.addEventListener(
-            "click",
-            function (cccccbdhgcufrekilkternfklccdvfidducudlgbvebd) {
-              const element = document.getElementById("dtools-modal-overlay");
-              if (element) {
-                element.parentNode.removeChild(element);
-              }
-            }
-          );
+          closeBtn.addEventListener("click", closePopUp);
 
           // Header
           const header = document.createElement("div");
@@ -839,6 +844,24 @@ const antiPhising = () => {
             button.style.backgroundColor = "#6BA84F";
           });
 
+          button.addEventListener("click", function () {
+            chrome.storage.local.get("allowed_domains", function (value) {
+              const domains = value["allowed_domains"].split(",");
+              const linkHostname = link.hostname;
+              if (!domains.includes(linkHostname)) {
+                domains.push(linkHostname);
+                allowedDomains.push(linkHostname);
+
+                chrome.storage.local.set({
+                  allowed_domains: domains.join(","),
+                });
+              }
+
+              closePopUp();
+              window.open(link.href, "_blank");
+            });
+          });
+
           body.innerHTML = message;
           body.append(button);
 
@@ -859,7 +882,10 @@ const antiPhising = () => {
       }
 
       function isAllowedToNavigate(link) {
-        return link.hostname === window.location.hostname;
+        return (
+          link.hostname === window.location.hostname ||
+          allowedDomains.includes(link.hostname)
+        );
       }
     }
   }, 100);

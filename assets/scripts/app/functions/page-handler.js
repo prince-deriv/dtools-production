@@ -222,5 +222,47 @@ const pageHandler = (e) => {
         });
       }
       break;
+    case "anti-phish":
+      {
+        const renderAllowedDomains = (allowedDomains) => {
+          $("#allowred-urls").html("");
+
+          allowedDomains.forEach((d) => {
+            const domainItem = ` <tr>
+            <td width="100%">${d}</td>
+            <td width="10">
+               <i class="fa fa-times delete-allowed-domain delete-icon" data-id="${d}"></i>
+            </td>
+           </tr>`;
+
+            $("#allowred-urls").append(domainItem);
+
+            $(".delete-allowed-domain").click(function () {
+              const url = $(this).data("id");
+
+              const newAllowedDomains = allowedDomains.filter(
+                (item) => item !== url
+              );
+
+              chrome.storage.local.set({
+                allowed_domains: newAllowedDomains.join(","),
+              });
+
+              renderAllowedDomains(newAllowedDomains);
+            });
+          });
+        };
+
+        chrome.storage.local.get("allowed_domains", function (value) {
+          const domains = value["allowed_domains"];
+
+          if (domains) {
+            allowedDomains = domains.split(",");
+
+            renderAllowedDomains(allowedDomains);
+          }
+        });
+      }
+      break;
   }
 };

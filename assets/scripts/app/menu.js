@@ -30,7 +30,6 @@ const menu = [
     icon: "paw",
     title: "Cats or Dogs?",
     target: "cat-dog",
-    is_new: true,
   },
 
   {
@@ -67,6 +66,7 @@ const menu = [
     icon: "ban",
     title: "Anti-Phishing",
     target: "anti-phish",
+    is_new: true,
   },
   // {
   //   icon: "dizzy",

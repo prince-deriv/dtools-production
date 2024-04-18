@@ -218,6 +218,13 @@ label {
 .main-container .app-section#cat-dog .pet-box .pet-item:hover {
   color: #ff444f;
 }
+.delete-icon {
+  cursor: pointer;
+}
+.delete-icon:hover {
+  background: red;
+  color: white;
+}
 .profile-container {
   display: none;
   align-items: center;

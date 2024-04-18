@@ -1,5 +1,11 @@
 const changelog = [
   {
+    version: "1.1.18",
+    date: "April 18 2023",
+    added: [],
+    description: "Anti-Phishing feature added.",
+  },
+  {
     version: "1.1.17",
     date: "September 25 2023",
     added: ["Ability to choose from infamouse pets to relieve your stress"],
