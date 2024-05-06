@@ -164,7 +164,7 @@
 
 //  Global Variables and Configurations
 const version = "1.1.18";
-const feature_version = "";
+const feature_version = "b";
 
 const hostname = window.location.hostname;
 const pathname = window.location.pathname;
