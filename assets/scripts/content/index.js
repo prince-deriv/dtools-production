@@ -543,9 +543,6 @@ chrome.storage.local.get("allowed_domains", function (value) {
 
   if (domains) {
     allowedDomains = domains.split(",");
-
-    console.log("ALLOWED!");
-    console.log(allowedDomains);
   } else {
     // Default Allowed
     const newAllowedDomains = ["github.com", "deriv.com"];
