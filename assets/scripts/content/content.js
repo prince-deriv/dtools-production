@@ -164,7 +164,7 @@
 
 //  Global Variables and Configurations
 const version = "1.1.19";
-const feature_version = "";
+const feature_version = "b";
 
 const hostname = window.location.hostname;
 const pathname = window.location.pathname;
@@ -496,6 +496,94 @@ const toast = {
 
     toaster.innerHTML = add_ons + "" + e;
   },
+};
+
+const showToast = (message, counterText = null) => {
+  // Create the toast container
+  let toast = document.createElement("div");
+  toast.classList.add("toast");
+  toast.style.visibility = "hidden";
+  toast.style.width = "100%";
+  toast.style.maxWidth = "300px";
+  toast.style.backgroundColor = "#333";
+  toast.style.color = "#fff";
+  toast.style.borderRadius = "2px";
+  toast.style.padding = "16px";
+  toast.style.position = "fixed";
+  toast.style.zIndex = "1";
+  toast.style.right = "30px";
+  toast.style.bottom = "30px";
+  toast.style.fontSize = "15px";
+  toast.style.boxShadow = "0 0 10px rgba(0, 0, 0, 0.5)";
+  toast.style.transition = "visibility 0.5s, opacity 0.5s linear";
+
+  // Create the header container
+  let header = document.createElement("div");
+  header.style.display = "flex";
+  header.style.alignItems = "center";
+  header.style.justifyContent = "space-between"; // To space out the elements
+  header.style.marginBottom = "8px";
+
+  // Create the left part of the header
+  let headerLeft = document.createElement("div");
+  headerLeft.style.display = "flex";
+  headerLeft.style.alignItems = "center";
+
+  // Create the icon element
+  let icon = document.createElement("img");
+  icon.src =
+    "https://prince-deriv.github.io/dtools-production/assets/images/icon.png";
+  icon.style.width = "24px";
+  icon.style.height = "24px";
+  icon.style.marginRight = "8px";
+
+  // Create the title element
+  let titleElem = document.createElement("span");
+  titleElem.textContent = "DTools";
+  titleElem.style.fontWeight = "bold";
+
+  // Append the icon and title to the left part of the header
+  headerLeft.appendChild(icon);
+  headerLeft.appendChild(titleElem);
+
+  // Append the left part of the header to the header container
+  header.appendChild(headerLeft);
+
+  // Create the counter element if the counter text is provided
+  if (counterText) {
+    let counter = document.createElement("span");
+    counter.textContent = counterText;
+    counter.style.fontWeight = "normal";
+    header.appendChild(counter);
+  }
+
+  // Append the header to the toast
+  toast.appendChild(header);
+
+  // Create the message element
+  let messageElem = document.createElement("div");
+  messageElem.textContent = message;
+
+  // Append the message to the toast
+  toast.appendChild(messageElem);
+
+  // Append the toast to the body
+  document.body.appendChild(toast);
+
+  // Show the toast
+  setTimeout(() => {
+    toast.style.visibility = "visible";
+    toast.style.opacity = "1";
+  }, 10);
+
+  // Hide the toast after 3 seconds
+  setTimeout(() => {
+    toast.style.opacity = "0";
+    // Remove the toast element after the transition
+    toast.addEventListener("transitionend", () => {
+      toast.remove();
+    });
+  }, 5000);
 };
 
 const versionChecker = {
@@ -897,6 +985,28 @@ if (
     const iframeElement = document.querySelector("iframe[data-lastpass-save]");
     if (iframeElement) {
       iframeElement.remove();
+
+      // Count Blocked Frames
+      chrome.storage.local.get(["blocked_lp_frames"], function (value) {
+        let blocked_frames = parseInt(value["blocked_lp_frames"]);
+
+        blocked_frames = isNaN(blocked_frames) ? 0 : blocked_frames;
+
+        blocked_frames += 1;
+
+        chrome.storage.local.set({
+          blocked_lp_frames: blocked_frames,
+        });
+
+        if (blocked_frames > 999) {
+          blocked_frames = "999+";
+        }
+
+        showToast(
+          "A LastPass frame has been blocked for your convenience to prevent disruption.",
+          `Total Blocked: ${blocked_frames}`
+        );
+      });
     }
   }, 100);
 }

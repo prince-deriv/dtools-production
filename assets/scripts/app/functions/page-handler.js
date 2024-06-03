@@ -264,5 +264,16 @@ const pageHandler = (e) => {
         });
       }
       break;
+    case "lastpass-blocker":
+      {
+        chrome.storage.local.get(["blocked_lp_frames"], function (value) {
+          let blocked_frames = parseInt(value["blocked_lp_frames"]);
+
+          blocked_frames = isNaN(blocked_frames) ? 0 : blocked_frames;
+
+          $("#lastpass-blocked-counter").html(blocked_frames);
+        });
+      }
+      break;
   }
 };

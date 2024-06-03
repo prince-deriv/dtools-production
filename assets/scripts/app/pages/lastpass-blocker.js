@@ -7,5 +7,8 @@ const page_lastpass_blocker = `
     It is particularly effective on <strong>localhost</strong> environments, ensuring a smoother and more productive development 
     experience by preventing unwanted interruptions from the <strong>LastPass</strong> iframe.
    </div>
+   <div class="data-box">
+   Total Blocked: <strong id="lastpass-blocked-counter"></strong>
+  </div>
 </div>
 `;

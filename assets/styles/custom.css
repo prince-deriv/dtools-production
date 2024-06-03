@@ -440,6 +440,14 @@ table tbody {
 .info-box strong {
   color: var(--red);
 }
+.data-box {
+  font-weight: bold;
+  font-size: 15px;
+  padding: 10px;
+}
+.data-box strong {
+  color: var(--red);
+}
 body.dark-theme {
   background: #151717 !important;
   background: -webkit-linear-gradient(to left, #373737, #151717) !important;
