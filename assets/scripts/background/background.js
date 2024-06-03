@@ -15,3 +15,5 @@ const messageManager = (action, data) => {
     });
   });
 };
+
+chrome.browserAction.setBadgeText({ text: 3 });

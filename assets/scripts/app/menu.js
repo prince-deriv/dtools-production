@@ -68,6 +68,12 @@ const menu = [
     target: "anti-phish",
     is_new: true,
   },
+  {
+    icon: "ban",
+    title: "LastPass Blocker",
+    target: "lastpass-blocker",
+    is_new: true,
+  },
   // {
   //   icon: "dizzy",
   //   title: "Proxy Manager",

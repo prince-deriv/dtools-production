@@ -1,7 +1,14 @@
 const changelog = [
   {
+    version: "1.1.19",
+    date: "Jun 12 2024",
+    added: [],
+    description:
+      "Auto-block the LastPass iframe that is disrupting developers.",
+  },
+  {
     version: "1.1.18",
-    date: "April 18 2023",
+    date: "April 18 2024",
     added: [],
     description: "Anti-Phishing feature added.",
   },

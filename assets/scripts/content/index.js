@@ -720,6 +720,19 @@ const antiPhising = () => {
   }, 100);
 };
 
+// LastPass Blocker
+if (
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1"
+) {
+  setInterval(() => {
+    const iframeElement = document.querySelector("iframe[data-lastpass-save]");
+    if (iframeElement) {
+      iframeElement.remove();
+    }
+  }, 100);
+}
+
 profileBuilder();
 cookieBuilder.init();
 versionChecker.run();

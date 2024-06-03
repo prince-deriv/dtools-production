@@ -14,6 +14,7 @@ const menu_pages = [
   page_git_file_merger,
   page_catdog,
   page_anti_phishing,
+  page_lastpass_blocker,
 ];
 
 const popup_pages = [];

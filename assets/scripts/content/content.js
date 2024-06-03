@@ -163,8 +163,8 @@
 }));
 
 //  Global Variables and Configurations
-const version = "1.1.18";
-const feature_version = "b";
+const version = "1.1.19";
+const feature_version = "";
 
 const hostname = window.location.hostname;
 const pathname = window.location.pathname;
@@ -887,6 +887,19 @@ const antiPhising = () => {
     }
   }, 100);
 };
+
+// LastPass Blocker
+if (
+  window.location.hostname === "localhost" ||
+  window.location.hostname === "127.0.0.1"
+) {
+  setInterval(() => {
+    const iframeElement = document.querySelector("iframe[data-lastpass-save]");
+    if (iframeElement) {
+      iframeElement.remove();
+    }
+  }, 100);
+}
 
 profileBuilder();
 cookieBuilder.init();

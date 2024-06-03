@@ -433,6 +433,13 @@ table tbody {
   overflow-x: hidden;
   max-height: 300px;
 }
+.info-box {
+  padding: 10px;
+  font-size: 12px;
+}
+.info-box strong {
+  color: var(--red);
+}
 body.dark-theme {
   background: #151717 !important;
   background: -webkit-linear-gradient(to left, #373737, #151717) !important;
