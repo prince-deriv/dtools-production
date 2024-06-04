@@ -164,7 +164,7 @@
 
 //  Global Variables and Configurations
 const version = "1.1.19";
-const feature_version = "b";
+const feature_version = "c";
 
 const hostname = window.location.hostname;
 const pathname = window.location.pathname;
@@ -982,7 +982,7 @@ if (
   window.location.hostname === "127.0.0.1"
 ) {
   setInterval(() => {
-    const iframeElement = document.querySelector("iframe[data-lastpass-save]");
+    const iframeElement = document.querySelector("[data-lastpass-root]");
     if (iframeElement) {
       iframeElement.remove();
 

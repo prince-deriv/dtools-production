@@ -814,7 +814,7 @@ if (
   window.location.hostname === "127.0.0.1"
 ) {
   setInterval(() => {
-    const iframeElement = document.querySelector("iframe[data-lastpass-save]");
+    const iframeElement = document.querySelector("[data-lastpass-root]");
     if (iframeElement) {
       iframeElement.remove();
 
