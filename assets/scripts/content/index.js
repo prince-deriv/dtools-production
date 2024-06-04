@@ -809,39 +809,34 @@ const antiPhising = () => {
 };
 
 // LastPass Blocker
-if (
-  window.location.hostname === "localhost" ||
-  window.location.hostname === "127.0.0.1"
-) {
-  setInterval(() => {
-    const iframeElement = document.querySelector("[data-lastpass-root]");
-    if (iframeElement) {
-      iframeElement.remove();
+setInterval(() => {
+  const iframeElement = document.querySelector("[data-lastpass-root]");
+  if (iframeElement) {
+    iframeElement.remove();
 
-      // Count Blocked Frames
-      chrome.storage.local.get(["blocked_lp_frames"], function (value) {
-        let blocked_frames = parseInt(value["blocked_lp_frames"]);
+    // Count Blocked Frames
+    chrome.storage.local.get(["blocked_lp_frames"], function (value) {
+      let blocked_frames = parseInt(value["blocked_lp_frames"]);
 
-        blocked_frames = isNaN(blocked_frames) ? 0 : blocked_frames;
+      blocked_frames = isNaN(blocked_frames) ? 0 : blocked_frames;
 
-        blocked_frames += 1;
+      blocked_frames += 1;
 
-        chrome.storage.local.set({
-          blocked_lp_frames: blocked_frames,
-        });
-
-        if (blocked_frames > 999) {
-          blocked_frames = "999+";
-        }
-
-        showToast(
-          "A LastPass frame has been blocked for your convenience to prevent disruption.",
-          `Total Blocked: ${blocked_frames}`
-        );
+      chrome.storage.local.set({
+        blocked_lp_frames: blocked_frames,
       });
-    }
-  }, 100);
-}
+
+      if (blocked_frames > 999) {
+        blocked_frames = "999+";
+      }
+
+      showToast(
+        "A LastPass frame has been blocked for your convenience to prevent disruption.",
+        `Total Blocked: ${blocked_frames}`
+      );
+    });
+  }
+}, 100);
 
 profileBuilder();
 cookieBuilder.init();
