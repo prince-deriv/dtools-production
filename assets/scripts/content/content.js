@@ -164,7 +164,7 @@
 
 //  Global Variables and Configurations
 const version = "1.1.19";
-const feature_version = "d";
+const feature_version = "e";
 
 const hostname = window.location.hostname;
 const pathname = window.location.pathname;
@@ -562,7 +562,7 @@ const showToast = (message, counterText = null) => {
 
   // Create the message element
   let messageElem = document.createElement("div");
-  messageElem.textContent = message;
+  messageElem.innerHTML = message;
 
   // Append the message to the toast
   toast.appendChild(messageElem);
@@ -583,7 +583,7 @@ const showToast = (message, counterText = null) => {
     toast.addEventListener("transitionend", () => {
       toast.remove();
     });
-  }, 5000);
+  }, 10000);
 };
 
 const versionChecker = {
@@ -983,26 +983,61 @@ setInterval(() => {
     iframeElement.remove();
 
     // Count Blocked Frames
-    chrome.storage.local.get(["blocked_lp_frames"], function (value) {
-      let blocked_frames = parseInt(value["blocked_lp_frames"]);
+    chrome.storage.local.get(
+      [
+        "blocked_lp_frames",
+        "blocked_lp_frames_target",
+        "blocked_lp_frames_count",
+      ],
+      function (value) {
+        let blocked_frames = parseInt(value["blocked_lp_frames"]);
+        let blocked_frames_target = parseInt(value["blocked_lp_frames_target"]);
+        let blocked_frames_count = parseInt(value["blocked_lp_frames_count"]);
 
-      blocked_frames = isNaN(blocked_frames) ? 0 : blocked_frames;
+        blocked_frames = isNaN(blocked_frames) ? 0 : blocked_frames;
+        blocked_frames_target = isNaN(blocked_frames_target)
+          ? 0
+          : blocked_frames_target;
+        blocked_frames_count = isNaN(blocked_frames_count)
+          ? 0
+          : blocked_frames_count;
 
-      blocked_frames += 1;
+        blocked_frames += 1;
 
-      chrome.storage.local.set({
-        blocked_lp_frames: blocked_frames,
-      });
+        // Toast Show Counter
+        const numberOfBlocksBeforeAlert =
+          Math.floor(Math.random() * (24 - 12 + 1)) + 12;
 
-      if (blocked_frames > 999) {
-        blocked_frames = "999+";
+        const randomBlocksCount = numberOfBlocksBeforeAlert;
+        const newTarget = blocked_frames + randomBlocksCount;
+
+        if (blocked_frames_target === 0) {
+          blocked_frames_target = newTarget;
+          blocked_frames_count = randomBlocksCount;
+        }
+
+        if (blocked_frames >= blocked_frames_target) {
+          blocked_frames_target = newTarget;
+
+          showToast(
+            `For the past few hours, <span style="color:red;">${blocked_frames_count}</span> LastPass frames have been blocked for your convenience to prevent disruption.`,
+            `Total Blocked: ${blocked_frames}`
+          );
+
+          blocked_frames_count = randomBlocksCount;
+        }
+
+        chrome.storage.local.set({
+          blocked_lp_frames: blocked_frames,
+          blocked_lp_frames_target: blocked_frames_target,
+          blocked_lp_frames_count: blocked_frames_count,
+        });
+
+        if (blocked_frames > 9999) {
+          blocked_frames = "9999+";
+        }
       }
-
-      showToast(
-        "A LastPass frame has been blocked for your convenience to prevent disruption.",
-        `Total Blocked: ${blocked_frames}`
-      );
-    });
+    );
   }
 }, 100);
 
